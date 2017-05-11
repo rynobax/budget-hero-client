@@ -14,7 +14,6 @@ const requestBudget = () => {
 }
 
 const recieveBudget = (data) => {
-  console.log('data: ', data);
   return {
     type: 'RECIEVE_BUDGET',
     items: data
@@ -24,23 +23,23 @@ const recieveBudget = (data) => {
 const apiUrl = 'http://localhost:9000/api/';
 
 export const fetchBudget = (subreddit) => {
-  function handleError(err){
-    console.log('Error: ', err);
+  function handleErrors(response) {
+      if (!response.ok) throw Error(response.statusText);
+      return response;
   }
 
   return function (dispatch) {
-    dispatch(requestBudget())
+    dispatch(requestBudget());
 
     return fetch(apiUrl + 'budget')
+      .then(handleErrors)
       .then(response => response.json())
-      .then(({success, data}) => {
-        if(success){
-          dispatch(recieveBudget(data));
-        }else{
-          handleError(data);
-        };
+      .then((items) => {
+        dispatch(recieveBudget(items));
       })
-      .catch(handleError);
+      .catch((err) => {
+        console.error('Error: ', err);
+      });
   }
 }
 

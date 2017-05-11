@@ -1,5 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 
 class BudgetList extends React.Component {
   constructor(props) {
@@ -7,14 +15,23 @@ class BudgetList extends React.Component {
     this.props.fetchBudgetIfNeeded();
   }
   
-  renderBudgetEntry({name, amount, key}) {
-    return <li key={key}>{name}—{amount}</li>;
+  renderBudgetEntry({name, amount, _id}) {
+    return (
+      <TableRow key={_id}>
+        <TableRowColumn> {name} </TableRowColumn>
+        <TableRowColumn> {amount} </TableRowColumn>
+      </TableRow>
+    );
   }
   
   render() {
     return (
       <div>
-        <ul> {this.props.items.map(this.renderBudgetEntry)} </ul>
+        <Table>
+          <TableBody displayRowCheckbox={false}>
+            {this.props.items.map(this.renderBudgetEntry)} 
+          </TableBody>
+        </Table>
       </div>
       );
   }
