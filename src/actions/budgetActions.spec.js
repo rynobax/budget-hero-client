@@ -19,18 +19,22 @@ describe('async actions', () => {
       .reply(200, [
         {
           name: 'Water',
-          category: 0
+          category: 0,
+          id: 0
         },
         {
           name: 'Electricity',
-          category: 0
+          category: 0,
+          id: 1
         },
         {
           name: 'Spending',
-          category: 1
+          category: 1,
+          id: 2
         },
         {
-          name: 'Food'
+          name: 'Food',
+          id: 3
         }
       ]);
 
@@ -65,18 +69,22 @@ describe('async actions', () => {
           items: [
             {
               name: 'Water',
-              category: 0
+              category: 0,
+              id: 0
             },
             {
               name: 'Electricity',
-              category: 0
+              category: 0,
+              id: 1
             },
             {
               name: 'Spending',
-              category: 1
+              category: 1,
+              id: 2
             },
             {
-              name: 'Food'
+              name: 'Food',
+              id: 3
             }
           ]
         }
