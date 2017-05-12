@@ -10,19 +10,19 @@ export const createBudgetEntry = (budgetEntry) => {
 const requestBudget = () => {
   return {
     type: 'REQUEST_BUDGET'
-  }
-}
+  };
+};
 
 const recieveBudget = (data) => {
   return {
     type: 'RECIEVE_BUDGET',
     items: data
-  }
-}
+  };
+};
 
 const apiUrl = 'http://localhost:9000/api/';
 
-export const fetchBudget = (subreddit) => {
+export const fetchBudget = () => {
   function handleErrors(response) {
       if (!response.ok) throw Error(response.statusText);
       return response;
@@ -40,8 +40,8 @@ export const fetchBudget = (subreddit) => {
       .catch((err) => {
         console.error('Error: ', err);
       });
-  }
-}
+  };
+};
 
 function shouldFetchBudget(state) {
   const budget = state.budget;
@@ -57,9 +57,9 @@ function shouldFetchBudget(state) {
 export function fetchBudgetIfNeeded() {
   return (dispatch, getState) => {
     if (shouldFetchBudget(getState())) {
-      return dispatch(fetchBudget())
+      return dispatch(fetchBudget());
     } else {
-      return Promise.resolve()
+      return Promise.resolve();
     }
-  }
+  };
 }

@@ -1,10 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Table,
   TableBody,
-  TableHeader,
-  TableHeaderColumn,
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';

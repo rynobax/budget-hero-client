@@ -1,18 +1,19 @@
 import React  from 'react';
-import {Link} from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Page from './Page';
+import Header from './header/Header';
 
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-const App = (props) => {
+const App = () => {
   return (
     <MuiThemeProvider>
-      <Page {...props}/>
+      <div>
+        <Header />
+      </div>
     </MuiThemeProvider>
   );
 };
 
-export default App
+export default App;
