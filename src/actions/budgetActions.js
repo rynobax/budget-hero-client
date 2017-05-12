@@ -1,11 +1,5 @@
 import fetch from 'isomorphic-fetch';
-
-export const createBudgetEntry = (budgetEntry) => {
-  return {
-    type: 'CREATE_BUDGET_ENTRY',
-    budgetEntry: budgetEntry
-  };  
-};
+import {API_BASE} from '../config';
 
 const requestBudget = () => {
   return {
@@ -13,29 +7,41 @@ const requestBudget = () => {
   };
 };
 
-const recieveBudget = (data) => {
+const recieveBudget = (categoryItems, budgetItems) => {
   return {
     type: 'RECIEVE_BUDGET',
-    items: data
+    budget: {
+      categories: categoryItems,
+      items: budgetItems
+    }
   };
 };
 
-const apiUrl = 'http://localhost:9000/api/';
-
-export const fetchBudget = () => {
+const fetchBudget = () => {
   function handleErrors(response) {
       if (!response.ok) throw Error(response.statusText);
       return response;
   }
 
+  function getBudgetItems() {
+    return fetch(API_BASE + 'budget')
+      .then(handleErrors)
+      .then(response => response.json());
+  }
+
+  function getCategoryItems() {
+    return fetch(API_BASE + 'category')
+      .then(handleErrors)
+      .then(response => response.json());
+  }
+
   return function (dispatch) {
     dispatch(requestBudget());
-
-    return fetch(apiUrl + 'budget')
-      .then(handleErrors)
-      .then(response => response.json())
+    return Promise.all([getCategoryItems(), getBudgetItems()])
       .then((items) => {
-        dispatch(recieveBudget(items));
+        const categoryItems = items[0];
+        const budgetItems = items[1];
+        dispatch(recieveBudget(categoryItems, budgetItems));
       })
       .catch((err) => {
         console.error('Error: ', err);
@@ -45,9 +51,7 @@ export const fetchBudget = () => {
 
 function shouldFetchBudget(state) {
   const budget = state.budget;
-  if (!budget) {
-    return true;
-  } else if (budget.isFetching) {
+  if (budget.isFetching) {
     return false;
   } else {
     return true;

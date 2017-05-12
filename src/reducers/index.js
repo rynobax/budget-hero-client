@@ -1,9 +1,7 @@
 import { combineReducers } from 'redux';
 import budget from './budgetReducer';
-import budgetModal from './budgetModalReducer';
 
 const budgetApp = combineReducers({
-  budget,
-  budgetModal
+  budget
 });
 export default budgetApp;

@@ -6,7 +6,7 @@ class BudgetPage extends React.Component {
   render() {
     return (
     <div>
-      <h1>BudgetPage</h1>
+      <button>Add Something</button>
       <BudgetListContainer />
     </div>
   );

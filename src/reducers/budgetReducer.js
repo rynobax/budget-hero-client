@@ -1,12 +1,8 @@
 export default (state = {
-    items: [],
+    categories: [],
     isFetching: false
   }, action) => {
   switch (action.type){
-    case 'CREATE_BUDGET_ENTRY':
-      return Object.assign({}, state, {
-        items: [...state, action.budgetEntry]
-      });
     case 'REQUEST_BUDGET':
       return Object.assign({}, state, {
         isFetching: true
@@ -14,7 +10,7 @@ export default (state = {
     case 'RECIEVE_BUDGET':
       return Object.assign({}, state, {
         isFetching: false,
-        items: action.items
+        categories: action.categories
       });
     default:
       return state;
