@@ -1,16 +1,13 @@
-import { createBudgetEntry, fetchBudgetIfNeeded } from '../../actions/budgetActions';
+import { fetchBudgetIfNeeded } from './budgetListActions';
 import { connect } from 'react-redux';
-import BudgetList from '../../components/budget/BudgetList';
+import BudgetList from './BudgetList';
 
 const mapStateToProps = (state) => {
-  return state.budget;
+  return state.budgetList;
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onCreateBudgetEntry: (budgetEntry) => {
-      dispatch(createBudgetEntry(budgetEntry));
-    },
     fetchBudgetIfNeeded: () => {
       dispatch(fetchBudgetIfNeeded());
     }

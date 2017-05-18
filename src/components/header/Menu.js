@@ -7,7 +7,10 @@ const Menu = () => (
     titleStyle={{textAlign: "center"}}
     iconClassNameRight="muidocs-icon-navigation-expand-more"
     zDepth={0}
-    className="HeaderMenu"
+    style={{
+      position: "fixed",
+      height: "8vh"
+      }}
   />
 );
 

@@ -1,10 +1,7 @@
 import React  from 'react';
-import {Route, IndexRoute} from 'react-router';
-import BudgetPage from './components/budget/BudgetPage';
+import {Route} from 'react-router';
 import App from './components/App';
 
 export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={BudgetPage}/>
-  </Route>
+  <Route path="/" component={App}/>
 );

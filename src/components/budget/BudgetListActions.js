@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import {API_BASE} from '../config';
+import {API_BASE} from '../../config';
 
 const requestBudget = () => {
   return {
@@ -10,7 +10,7 @@ const requestBudget = () => {
 const recieveBudget = (categoryItems, budgetItems) => {
   return {
     type: 'RECIEVE_BUDGET',
-    budget: {
+    budgetList: {
       categories: categoryItems,
       items: budgetItems
     }
@@ -50,8 +50,8 @@ const fetchBudget = () => {
 };
 
 function shouldFetchBudget(state) {
-  const budget = state.budget;
-  if (budget.isFetching) {
+  const budgetList = state.budgetList;
+  if (budgetList.isFetching) {
     return false;
   } else {
     return true;

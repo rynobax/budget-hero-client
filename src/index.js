@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 
-import configureStore from './store/configureStore';
+import configureStore from './configureStore';
 import routes from './routes';
 
 const store = configureStore();

@@ -1,48 +1,39 @@
 import React from 'react';
-import {
-  Table,
-  TableBody,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+import RaisedButton from 'material-ui/RaisedButton';
+import FontIcon from 'material-ui/FontIcon';
 
 class BudgetList extends React.Component {
   constructor(props) {
     super(props);
     this.props.fetchBudgetIfNeeded();
   }
-  
-  renderBudgetEntry({name, amount, _id}) {
+
+  renderHeader(){
+    const style = {
+      margin: 12,
+      flex: 1
+    };
     return (
-      <TableRow key={_id}>
-        <TableRowColumn> {name} </TableRowColumn>
-        <TableRowColumn> {amount} </TableRowColumn>
-      </TableRow>
-    );
+      <div style={{display: "flex"}}>
+        <RaisedButton
+          icon={<FontIcon className="material-icons">create</FontIcon>}
+          style={style}
+        />
+        <RaisedButton
+          icon={<FontIcon className="material-icons">add_circle</FontIcon>}
+          style={style}
+        />
+      </div>
+    )
   }
-  
+
   render() {
     return (
       <div>
-        <Table>
-          <TableBody displayRowCheckbox={false}>
-            {this.props.items.map(this.renderBudgetEntry)} 
-          </TableBody>
-        </Table>
+        {this.renderHeader()}
       </div>
       );
   }
 }
-/*
-BudgetList.propTypes = {
-    budget: PropTypes.shape({
-      items: PropTypes.arrayOf(PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          type: PropTypes.string.isRequired,
-          amount: PropTypes.number.isRequired
-        })).isRequired,
-      isFetching: PropTypes.boolean
-  })
-};*/
 
 export default BudgetList;

@@ -2,7 +2,7 @@ import {createStore, compose, applyMiddleware} from 'redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import rootReducer from '../reducers';
+import rootReducer from './reducers';
 
 function configureStoreProd(initialState) {
   const middlewares = [
@@ -40,8 +40,8 @@ function configureStoreDev(initialState) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextReducer = require('../reducers').default; // eslint-disable-line global-require
+    module.hot.accept('./reducers', () => {
+      const nextReducer = require('./reducers').default; // eslint-disable-line global-require
       store.replaceReducer(nextReducer);
     });
   }
