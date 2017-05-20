@@ -10,9 +10,14 @@ const requestBudget = () => {
 const recieveBudget = (categoryItems, budgetItems) => {
   return {
     type: 'RECIEVE_BUDGET',
-    budgetList: {
-      categories: categoryItems,
-      items: budgetItems
+    budget: {
+      categories: categoryItems.map(category => {
+        return Object.assign({}, category, {
+          items: budgetItems.filter(item => {
+            return item.category == category._id;
+          })
+        });
+      })
     }
   };
 };
@@ -50,8 +55,8 @@ const fetchBudget = () => {
 };
 
 function shouldFetchBudget(state) {
-  const budgetList = state.budgetList;
-  if (budgetList.isFetching) {
+  const budget = state.budget;
+  if (budget.isFetching) {
     return false;
   } else {
     return true;

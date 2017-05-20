@@ -9,7 +9,7 @@ const Menu = () => (
     zDepth={0}
     style={{
       position: "fixed",
-      height: "8vh"
+      height: "60px"
       }}
   />
 );

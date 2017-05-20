@@ -1,9 +1,9 @@
-import budgetListReducer from './budgetListReducer';
+import budgetReducer from './BudgetReducer';
 
-describe('budget list reducer', () => {
+describe('budget reducer', () => {
   it('should return the initial state', () => {
     expect(
-      budgetListReducer(undefined, {})
+      budgetReducer(undefined, {})
     ).toEqual(
       {
         categories: [],
@@ -14,7 +14,7 @@ describe('budget list reducer', () => {
 
   it('should handle REQUEST_BUDGET', () => {
     expect(
-      budgetListReducer({
+      budgetReducer({
         categories: [],
         isFetching: false
       }, {
@@ -30,38 +30,40 @@ describe('budget list reducer', () => {
 
   it('should handle RECIEVE_BUDGET', () => {
     expect(
-      budgetListReducer({
+      budgetReducer({
         categories: [],
         isFetching: true
       }, {
         type: 'RECIEVE_BUDGET',
-        categories: [
-          {
-            name: 'Utilities',
-            items: [
-              {
-                name: 'Electrical',
-                type: 'VALUE',
-                amount: 50
-              },
-              {
-                name: 'Water',
-                type: 'VALUE',
-                amount: 25
-              }
-            ]
-          },
-          {
-            name: 'Personal',
-            items: [
-              {
-                name: 'Spending',
-                type: 'PERCENT',
-                amount: 10
-              }
-            ]
-          }
-        ]
+        budget: {
+          categories: [
+            {
+              name: 'Utilities',
+              items: [
+                {
+                  name: 'Electrical',
+                  type: 'VALUE',
+                  amount: 50
+                },
+                {
+                  name: 'Water',
+                  type: 'VALUE',
+                  amount: 25
+                }
+              ]
+            },
+            {
+              name: 'Personal',
+              items: [
+                {
+                  name: 'Spending',
+                  type: 'PERCENT',
+                  amount: 10
+                }
+              ]
+            }
+          ]
+        }
       })
     ).toEqual(
       {

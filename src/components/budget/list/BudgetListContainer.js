@@ -1,18 +1,19 @@
-import { fetchBudgetIfNeeded } from './budgetListActions';
 import { connect } from 'react-redux';
 import BudgetList from './BudgetList';
+import {fetchBudgetIfNeeded} from '../BudgetActions';
 
 const mapStateToProps = (state) => {
-  return state.budgetList;
+  return state.budget;
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchBudgetIfNeeded: () => {
+    fetch: () => {
       dispatch(fetchBudgetIfNeeded());
     }
   };
 };
+
 
 // Use connect to put them together
 export default connect(mapStateToProps, mapDispatchToProps)(BudgetList);

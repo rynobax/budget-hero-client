@@ -3,10 +3,10 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 import expect from 'expect';
 import {API_BASE} from '../../config';
-import {fetchBudgetIfNeeded} from './budgetListActions';
+import {fetchBudgetIfNeeded} from './BudgetActions';
 
-const middlewares = [ thunk ];
-const mockStore = configureMockStore(middlewares);
+const m_iddlewares = [ thunk ];
+const mockStore = configureMockStore(m_iddlewares);
 
 describe('async actions', () => {
   afterEach(() => {
@@ -20,21 +20,17 @@ describe('async actions', () => {
         {
           name: 'Water',
           category: 0,
-          id: 0
+          _id: 0
         },
         {
           name: 'Electricity',
           category: 0,
-          id: 1
+          _id: 1
         },
         {
           name: 'Spending',
           category: 1,
-          id: 2
-        },
-        {
-          name: 'Food',
-          id: 3
+          _id: 2
         }
       ]);
 
@@ -43,11 +39,11 @@ describe('async actions', () => {
       .reply(200, [
         {
           name: 'Utilities',
-          id: 0
+          _id: 0
         },
         {
           name: 'Personal',
-          id: 1
+          _id: 1
         }
       ]);
 
@@ -55,43 +51,41 @@ describe('async actions', () => {
       { type: 'REQUEST_BUDGET' },
       {
         type: 'RECIEVE_BUDGET', 
-        budgetList: {
+        budget: {
           categories: [
             {
               name: 'Utilities',
-              id: 0
+              _id: 0,
+              items: [
+                {
+                  name: 'Water',
+                  category: 0,
+                  _id: 0
+                },
+                {
+                  name: 'Electricity',
+                  category: 0,
+                  _id: 1
+                }
+              ]
             },
             {
               name: 'Personal',
-              id: 1
-            }
-          ],
-          items: [
-            {
-              name: 'Water',
-              category: 0,
-              id: 0
-            },
-            {
-              name: 'Electricity',
-              category: 0,
-              id: 1
-            },
-            {
-              name: 'Spending',
-              category: 1,
-              id: 2
-            },
-            {
-              name: 'Food',
-              id: 3
+              _id: 1,
+              items: [
+                {
+                  name: 'Spending',
+                  category: 1,
+                  _id: 2
+                }
+              ]
             }
           ]
         }
       }
     ];
     const store = mockStore({
-        budgetList: {
+        budget: {
             isFetching: false
         }
     });
