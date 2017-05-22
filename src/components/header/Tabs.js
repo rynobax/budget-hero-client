@@ -9,7 +9,7 @@ const TabsExampleIconText = () => (
     position: "fixed",
     height: "50px",
     top: "50px",
-    zIndex: 10000
+    zIndex: 1000
     }}>
     <Tab icon={<FontIcon className="material-icons">attach_money</FontIcon>}>
       <div className={"tabContent"}>

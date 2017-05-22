@@ -1,6 +1,5 @@
 import React from 'react';
 import BudgetCategory from './BudgetCategory';
-import {List} from 'material-ui/List';
 
 class BudgetList extends React.Component {
   constructor(props) {
@@ -10,7 +9,7 @@ class BudgetList extends React.Component {
 
   render() {
     return (
-      <List>
+      <div>
         {this.props.categories.map((category, i) => {
           return (
             <BudgetCategory
@@ -19,7 +18,7 @@ class BudgetList extends React.Component {
             />
           );
         })}
-      </List>
+      </div>
     );
   }
 }

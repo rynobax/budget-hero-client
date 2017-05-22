@@ -1,6 +1,5 @@
 import React from 'react';
 import BudgetItem from './BudgetItem';
-import {ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import {
   Table,
@@ -9,21 +8,24 @@ import {
 
 const BudgetCategory = ({name, items}) => {
   return (
-    <ListItem>
+    <div>
       <Subheader>{name}</Subheader>
       <Table>
-        <TableBody>
-          {items.map((item, i) => {
+        <TableBody
+        showRowHover={true}>
+          {items.map((_item) => {
+            const {id, category, ...item} = _item;
+            category;
             return (
               <BudgetItem 
-              key={i}
+              key={id}
               {...item}
               />
             );
           })}
         </TableBody>
       </Table>
-    </ListItem>
+    </div>
     );
 };
 

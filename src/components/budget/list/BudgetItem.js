@@ -4,13 +4,20 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-const BudgetItem = ({name, amount}) => {
-  return (
-    <TableRow>
-      <TableRowColumn>{name}</TableRowColumn>
-      <TableRowColumn>{amount}</TableRowColumn>
-    </TableRow>
+class BudgetItem extends React.Component {
+  render() {
+    const { name, amount, period, ...rowProps } = this.props;
+    period;
+    return (
+      <TableRow
+      hoverable={true}
+      {...rowProps}>
+        <TableRowColumn>{name}</TableRowColumn>
+        <TableRowColumn>{amount}</TableRowColumn>
+      </TableRow>
     );
-};
+  }
+}
+
 
 export default BudgetItem;
