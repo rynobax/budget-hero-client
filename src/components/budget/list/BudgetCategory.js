@@ -23,18 +23,24 @@ class BudgetCategory extends React.Component {
   }
 
   render () {
+    const tableStyle = {};
+    if(this.props.hidden){
+      tableStyle['display'] = 'none';
+    }
     return (
     <div>
       <Checkbox
         checkedIcon={<UpArrow />}
         uncheckedIcon={<DownArrow />}
-        label={this.props.name}
+        label={this.props.category.name}
         style={styles.checkbox}
+        onCheck={this.props.onCheck}
       />
-      <Table>
+      <Table
+      style={tableStyle}>
         <TableBody
         showRowHover={true}>
-          {this.props.items.map((item, i) => {
+          {this.props.category.items.map((item, i) => {
             return (
               <BudgetItem 
               key={i}

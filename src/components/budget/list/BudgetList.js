@@ -5,6 +5,17 @@ class BudgetList extends React.Component {
   constructor(props) {
     props.fetch();
     super(props);
+    this.state = {
+      hidden: {}
+    };
+    this.onCheck = (i, _, isChecked) => {
+      const newHidden = {};
+      newHidden[i] = isChecked;
+      const newState = {
+        hidden: Object.assign({}, this.state.hidden, newHidden)
+      };
+      this.setState(Object.assign({}, this.state, newState));
+    }
   }
 
   render() {
@@ -14,7 +25,9 @@ class BudgetList extends React.Component {
           return (
             <BudgetCategory
             key={i}
-            {...category}
+            category={category}
+            onCheck={this.onCheck.bind(null, i)}
+            hidden={this.state.hidden[i] || false}
             />
           );
         })}
