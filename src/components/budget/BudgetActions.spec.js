@@ -19,31 +19,15 @@ describe('async actions', () => {
       .reply(200, [
         {
           name: 'Water',
-          category: 0,
-          _id: 0
+          category: 'Utilities'
         },
         {
           name: 'Electricity',
-          category: 0,
-          _id: 1
+          category: 'Utilities'
         },
         {
           name: 'Spending',
-          category: 1,
-          _id: 2
-        }
-      ]);
-
-    nock(API_BASE)
-      .get('/category')
-      .reply(200, [
-        {
-          name: 'Utilities',
-          _id: 0
-        },
-        {
-          name: 'Personal',
-          _id: 1
+          category: 'Personal'
         }
       ]);
 
@@ -51,37 +35,27 @@ describe('async actions', () => {
       { type: 'REQUEST_BUDGET' },
       {
         type: 'RECIEVE_BUDGET', 
-        budget: {
-          categories: [
-            {
-              name: 'Utilities',
-              _id: 0,
-              items: [
+        categories: [
+          {
+            name: 'Utilities',
+            items: [
                 {
                   name: 'Water',
-                  category: 0,
-                  _id: 0
                 },
                 {
                   name: 'Electricity',
-                  category: 0,
-                  _id: 1
                 }
               ]
-            },
-            {
-              name: 'Personal',
-              _id: 1,
-              items: [
-                {
-                  name: 'Spending',
-                  category: 1,
-                  _id: 2
-                }
-              ]
-            }
-          ]
-        }
+          },
+          {
+            name: 'Personal',
+            items: [
+              {
+                name: 'Spending',
+              }
+            ]
+          }
+        ]
       }
     ];
     const store = mockStore({

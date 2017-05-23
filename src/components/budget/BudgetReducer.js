@@ -10,7 +10,7 @@ export default (state = {
     case 'RECIEVE_BUDGET':
       return Object.assign({}, state, {
         isFetching: false,
-        categories: action.budget.categories
+        categories: action.categories
       });
     default:
       return state;

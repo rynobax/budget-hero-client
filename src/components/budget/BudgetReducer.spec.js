@@ -35,66 +35,40 @@ describe('budget reducer', () => {
         isFetching: true
       }, {
         type: 'RECIEVE_BUDGET',
-        budget: {
-          categories: [
-            {
-              name: 'Utilities',
-              items: [
-                {
-                  name: 'Electrical',
-                  type: 'VALUE',
-                  amount: 50
-                },
+        categories: {
+          'Utilities': [
                 {
                   name: 'Water',
-                  type: 'VALUE',
-                  amount: 25
-                }
-              ]
-            },
-            {
-              name: 'Personal',
-              items: [
+                },
                 {
-                  name: 'Spending',
-                  type: 'PERCENT',
-                  amount: 10
+                  name: 'Electricity',
                 }
-              ]
-            }
-          ]
+              ],
+          'Personal':[
+              {
+                name: 'Spending',
+              }
+            ]
         }
       })
     ).toEqual(
       {
         isFetching: false,
-        categories: [
-          {
-            name: 'Utilities',
-            items: [
-              {
-                name: 'Electrical',
-                type: 'VALUE',
-                amount: 50
-              },
-              {
-                name: 'Water',
-                type: 'VALUE',
-                amount: 25
-              }
-            ]
-          },
-          {
-            name: 'Personal',
-            items: [
+        categories: {
+          'Utilities': [
+                {
+                  name: 'Water',
+                },
+                {
+                  name: 'Electricity',
+                }
+              ],
+          'Personal':[
               {
                 name: 'Spending',
-                type: 'PERCENT',
-                amount: 10
               }
             ]
-          }
-        ]
+        }
       }
     );
   });

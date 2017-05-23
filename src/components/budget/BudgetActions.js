@@ -7,18 +7,22 @@ const requestBudget = () => {
   };
 };
 
-const recieveBudget = (categoryItems, budgetItems) => {
+const recieveBudget = (budgetItems) => {
   return {
     type: 'RECIEVE_BUDGET',
-    budget: {
-      categories: categoryItems.map(category => {
-        return Object.assign({}, category, {
-          items: budgetItems.filter(item => {
-            return item.category == category._id;
-          })
-        });
-      })
-    }
+    categories: budgetItems.reduce((arr, {category, ...item}) => {
+      for(const addedCategory of arr){
+        if(addedCategory.name == category){
+          addedCategory.items.push(item);
+          return arr;
+        }
+      }
+      arr.push({
+        name: category,
+        items: [item]
+      });
+      return arr;
+    }, [])
   };
 };
 
@@ -28,25 +32,13 @@ const fetchBudget = () => {
       return response;
   }
 
-  function getBudgetItems() {
-    return fetch(API_BASE + 'budget')
-      .then(handleErrors)
-      .then(response => response.json());
-  }
-
-  function getCategoryItems() {
-    return fetch(API_BASE + 'category')
-      .then(handleErrors)
-      .then(response => response.json());
-  }
-
   return function (dispatch) {
     dispatch(requestBudget());
-    return Promise.all([getCategoryItems(), getBudgetItems()])
-      .then((items) => {
-        const categoryItems = items[0];
-        const budgetItems = items[1];
-        dispatch(recieveBudget(categoryItems, budgetItems));
+    return fetch(API_BASE + 'budget')
+      .then(handleErrors)
+      .then(response => response.json())
+      .then((budgetItems) => {
+        dispatch(recieveBudget(budgetItems));
       })
       .catch((err) => {
         console.error('Error: ', err);

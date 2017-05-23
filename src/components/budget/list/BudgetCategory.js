@@ -1,24 +1,43 @@
 import React from 'react';
 import BudgetItem from './BudgetItem';
-import Subheader from 'material-ui/Subheader';
+import Checkbox from 'material-ui/Checkbox';
+import UpArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+import DownArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import {
   Table,
   TableBody
 } from 'material-ui/Table';
 
-const BudgetCategory = ({name, items}) => {
-  return (
+const styles = {
+  block: {
+    maxWidth: 250,
+  },
+  checkbox: {
+    marginBottom: 16,
+  },
+};
+
+class BudgetCategory extends React.Component {
+  constructor() {
+    super();
+  }
+
+  render () {
+    return (
     <div>
-      <Subheader>{name}</Subheader>
+      <Checkbox
+        checkedIcon={<UpArrow />}
+        uncheckedIcon={<DownArrow />}
+        label={this.props.name}
+        style={styles.checkbox}
+      />
       <Table>
         <TableBody
         showRowHover={true}>
-          {items.map((_item) => {
-            const {id, category, ...item} = _item;
-            category;
+          {this.props.items.map((item, i) => {
             return (
               <BudgetItem 
-              key={id}
+              key={i}
               {...item}
               />
             );
@@ -27,6 +46,7 @@ const BudgetCategory = ({name, items}) => {
       </Table>
     </div>
     );
-};
+  }
+}
 
 export default BudgetCategory;
