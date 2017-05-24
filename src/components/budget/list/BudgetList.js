@@ -1,7 +1,7 @@
 import React from 'react';
 import BudgetCategory from './BudgetCategory';
 
-class BudgetList extends React.Component {
+export default class BudgetList extends React.Component {
   constructor(props) {
     props.fetch();
     super(props);
@@ -35,5 +35,3 @@ class BudgetList extends React.Component {
     );
   }
 }
-
-export default BudgetList;

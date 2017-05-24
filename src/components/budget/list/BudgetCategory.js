@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-class BudgetCategory extends React.Component {
+export default class BudgetCategory extends React.Component {
   constructor() {
     super();
   }
@@ -54,5 +54,3 @@ class BudgetCategory extends React.Component {
     );
   }
 }
-
-export default BudgetCategory;

@@ -4,7 +4,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-class BudgetItem extends React.Component {
+export default class BudgetItem extends React.Component {
   render() {
     const { name, amount, period, _id, ...rowProps } = this.props;
     // Use these or don't send from server
@@ -21,6 +21,3 @@ class BudgetItem extends React.Component {
     );
   }
 }
-
-
-export default BudgetItem;
