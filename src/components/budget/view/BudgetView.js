@@ -1,12 +1,12 @@
 import React from 'react';
 import BudgetViewHeader from './BudgetViewHeader';
-import BudgetListContainer from '../list/BudgetListContainer';
+import BudgetList from '../list/BudgetList';
 
-const BudgetView = () => {
+const BudgetView = (props) => {
   return (
     <div>
       <BudgetViewHeader/>
-      <BudgetListContainer/>
+      <BudgetList {...props}/>
     </div>
     );
 };
