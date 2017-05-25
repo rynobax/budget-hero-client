@@ -1,7 +1,7 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
-import BudgetAdd from '../add/BudgetAdd';
+import BudgetAddButton from '../add/BudgetAddButton';
 
 const buttonStyle = {
   width: '100%',
@@ -21,7 +21,7 @@ const BudgetListHeader = () => {
           style={buttonStyle}
         />
       </div>
-      <BudgetAdd {...{buttonStyle: buttonStyle, divStyle: divStyle}}/>
+      <BudgetAddButton {...{buttonStyle: buttonStyle, divStyle: divStyle}}/>
     </div>
   );
 };
