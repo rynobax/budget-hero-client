@@ -3,6 +3,7 @@ import BudgetCategory from './BudgetCategory';
 
 export default class BudgetList extends React.Component {
   constructor(props) {
+    console.log('props: ', props);
     props.fetch();
     super(props);
     this.state = {

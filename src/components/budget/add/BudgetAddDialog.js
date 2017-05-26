@@ -9,8 +9,8 @@ export default class BudgetAddDialog extends React.Component {
   constructor() {
     super();
     this.state = {
-      frequencyValue: 1,
-      categoryValue: 1
+      frequencyValue: 0,
+      categoryValue: 0
     };
 
     this.handleChangeFrequency = (event, index, value) => {
@@ -22,7 +22,7 @@ export default class BudgetAddDialog extends React.Component {
     };
     
     this.newCategoryStyle = () => {
-      if(this.state.categoryValue == 0) return {};
+      if(this.state.categoryValue == -1) return {};
       return {display: "none"};
     };
   }
@@ -41,6 +41,8 @@ export default class BudgetAddDialog extends React.Component {
         onTouchTap={this.props.handleClose}
       />,
     ];
+    const categories = this.props.categories.map((name, i) => <MenuItem value={i} primaryText={name} key={i} />);
+    categories.push(<MenuItem value={-1} primaryText='New Category' key={-1} />);
     return (
       <Dialog
         title="Add Budget Item"
@@ -69,9 +71,9 @@ export default class BudgetAddDialog extends React.Component {
               value={this.state.frequencyValue}
               onChange={this.handleChangeFrequency}
             >
-              <MenuItem value={1} primaryText="Annually" />
-              <MenuItem value={2} primaryText="Monthly" />
-              <MenuItem value={3} primaryText="Weekly" />
+              <MenuItem value={0} primaryText="Annually" />
+              <MenuItem value={1} primaryText="Monthly" />
+              <MenuItem value={2} primaryText="Weekly" />
             </SelectField>
           </div>
         </div>
@@ -83,9 +85,7 @@ export default class BudgetAddDialog extends React.Component {
             onChange={this.handleChangeCategory}
             autoWidth={true}
           >
-            <MenuItem value={1} primaryText="Category 1" />
-            <MenuItem value={2} primaryText="Category 2" />
-            <MenuItem value={0} primaryText="New" />
+            {categories}
           </SelectField>
         </div>
 

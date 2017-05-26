@@ -1,5 +1,5 @@
 export default (state = {
-    categories: {},
+    categories: [],
     isFetching: false
   }, action) => {
   switch (action.type){
@@ -15,8 +15,20 @@ export default (state = {
     case 'ADD_BUDGET_ITEM': {
       const {category, ...item} = action.item;
       const newCategories = state.categories;
-      if(newCategories[category] == undefined) newCategories[category] = [];
-      newCategories[category].push(item);
+      let exists = false;
+      for(const existingCategory of newCategories){
+        if(existingCategory.name == category){
+          existingCategory.push(item);
+          exists = true;
+          break;
+        }
+      }
+      if(!exists){
+        newCategories.push({
+          name: category,
+          items: [item]
+        });
+      }
       return Object.assign({}, state, {
         categories: newCategories
       });

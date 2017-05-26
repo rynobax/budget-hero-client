@@ -5,8 +5,8 @@ import BudgetList from '../list/BudgetList';
 const BudgetView = (props) => {
   return (
     <div>
-      <BudgetViewHeader/>
-      <BudgetList {...props}/>
+      <BudgetViewHeader />
+      <BudgetList {...{categories: props.categories, fetch: props.fetch}}/>
     </div>
     );
 };

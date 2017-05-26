@@ -6,7 +6,7 @@ describe('budget reducer', () => {
       budgetReducer(undefined, {})
     ).toEqual(
       {
-        categories: {},
+        categories: [],
         isFetching: false
       }
     );
@@ -33,40 +33,52 @@ describe('budget reducer', () => {
         isFetching: true
       }, {
         type: 'RECIEVE_BUDGET',
-        categories: {
-          'Utilities': [
-                {
-                  name: 'Water',
-                },
-                {
-                  name: 'Electricity',
-                }
-              ],
-          'Personal':[
+        categories: [
+          {
+            name: 'Utilities',
+            items: [
               {
-                name: 'Spending',
+                name: 'Water'
+              },
+              {
+                name: 'Electricity'
               }
             ]
-        }
+          },
+          {
+            name: 'Personal',
+            items: [
+              {
+                name: 'Spending'
+              }
+            ]
+          }
+        ]
       })
     ).toEqual(
       {
         isFetching: false,
-        categories: {
-          'Utilities': [
-                {
-                  name: 'Water',
-                },
-                {
-                  name: 'Electricity',
-                }
-              ],
-          'Personal':[
+        categories: [
+          {
+            name: 'Utilities',
+            items: [
               {
-                name: 'Spending',
+                name: 'Water'
+              },
+              {
+                name: 'Electricity'
               }
             ]
-        }
+          },
+          {
+            name: 'Personal',
+            items: [
+              {
+                name: 'Spending'
+              }
+            ]
+          }
+        ]
       }
     );
   });
@@ -74,7 +86,7 @@ describe('budget reducer', () => {
   it('should handle ADD_BUDGET_ITEM with empty category', () => {
     expect(
       budgetReducer({
-        categories: {},
+        categories: [],
         isFetching: false
       }, {
         type: 'ADD_BUDGET_ITEM',
@@ -89,16 +101,19 @@ describe('budget reducer', () => {
     ).toEqual(
       {
         isFetching: false,
-        categories: {
-          'Bills': [
-            {
-              name: 'Rent',
-              period: 'WEEKLY',
-              type: 'VALUE',
-              amount: '500'
-            }
-          ]
-        }
+        categories: [
+          {
+            name: 'Bills',
+            items: [
+              {
+                name: 'Rent',
+                period: 'WEEKLY',
+                type: 'VALUE',
+                amount: '500'
+              }
+            ]
+          }
+        ]
       }
     )
   });
