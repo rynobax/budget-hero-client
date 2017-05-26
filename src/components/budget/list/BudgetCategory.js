@@ -44,7 +44,7 @@ export default class BudgetCategory extends React.Component {
             return (
               <BudgetItem 
               key={i}
-              {...item}
+              item={item}
               />
             );
           })}

@@ -5,10 +5,10 @@ import expect from 'expect';
 import {API_BASE} from '../../config';
 import {fetchBudgetIfNeeded} from './BudgetActions';
 
-const m_iddlewares = [ thunk ];
-const mockStore = configureMockStore(m_iddlewares);
+const middlewares = [ thunk ];
+const mockStore = configureMockStore(middlewares);
 
-describe('async actions', () => {
+describe('async budget actions', () => {
   afterEach(() => {
     nock.cleanAll();
   });
@@ -18,23 +18,30 @@ describe('async actions', () => {
       .get('/budget')
       .reply(200, [
         {
-          name: 'Water',
-          category: 'Utilities'
+          name: 'Utilities',
+          items: [
+              {
+                name: 'Water',
+              },
+              {
+                name: 'Electricity',
+              }
+            ]
         },
         {
-          name: 'Electricity',
-          category: 'Utilities'
-        },
-        {
-          name: 'Spending',
-          category: 'Personal'
+          name: 'Personal',
+          items: [
+            {
+              name: 'Spending',
+            }
+          ]
         }
       ]);
 
     const expectedActions = [
       { type: 'REQUEST_BUDGET' },
       {
-        type: 'RECIEVE_BUDGET', 
+        type: 'RECIEVE_BUDGET',
         categories: [
           {
             name: 'Utilities',

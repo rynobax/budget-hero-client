@@ -6,17 +6,15 @@ import {
 
 export default class BudgetItem extends React.Component {
   render() {
-    const { name, amount, period, _id, ...rowProps } = this.props;
+    const { item, ...rowProps } = this.props;
     // Use these or don't send from server
-    period;
-    _id;
     ///////
     return (
       <TableRow
       hoverable={true}
       {...rowProps}>
-        <TableRowColumn>{name}</TableRowColumn>
-        <TableRowColumn>{amount}</TableRowColumn>
+        <TableRowColumn>{item.name}</TableRowColumn>
+        <TableRowColumn>{item.amount}</TableRowColumn>
       </TableRow>
     );
   }

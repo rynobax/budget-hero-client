@@ -6,7 +6,7 @@ describe('budget reducer', () => {
       budgetReducer(undefined, {})
     ).toEqual(
       {
-        categories: [],
+        categories: {},
         isFetching: false
       }
     );
@@ -15,14 +15,12 @@ describe('budget reducer', () => {
   it('should handle REQUEST_BUDGET', () => {
     expect(
       budgetReducer({
-        categories: [],
         isFetching: false
       }, {
         type: 'REQUEST_BUDGET'
       })
     ).toEqual(
       {
-        categories: [],
         isFetching: true
       }
     );
@@ -71,5 +69,37 @@ describe('budget reducer', () => {
         }
       }
     );
+  });
+
+  it('should handle ADD_BUDGET_ITEM with empty category', () => {
+    expect(
+      budgetReducer({
+        categories: {},
+        isFetching: false
+      }, {
+        type: 'ADD_BUDGET_ITEM',
+        item: {
+          name: 'Rent',
+          category: 'Bills',
+          period: 'WEEKLY',
+          type: 'VALUE',
+          amount: '500'
+        }
+      })
+    ).toEqual(
+      {
+        isFetching: false,
+        categories: {
+          'Bills': [
+            {
+              name: 'Rent',
+              period: 'WEEKLY',
+              type: 'VALUE',
+              amount: '500'
+            }
+          ]
+        }
+      }
+    )
   });
 });

@@ -1,28 +1,16 @@
 import fetch from 'isomorphic-fetch';
 import {API_BASE} from '../../config';
 
-const requestBudget = () => {
+const requestBudgetAction = () => {
   return {
     type: 'REQUEST_BUDGET'
   };
 };
 
-const recieveBudget = (budgetItems) => {
+const recieveBudgetAction = (categories) => {
   return {
     type: 'RECIEVE_BUDGET',
-    categories: budgetItems.reduce((arr, {category, ...item}) => {
-      for(const addedCategory of arr){
-        if(addedCategory.name == category){
-          addedCategory.items.push(item);
-          return arr;
-        }
-      }
-      arr.push({
-        name: category,
-        items: [item]
-      });
-      return arr;
-    }, [])
+    categories: categories
   };
 };
 
@@ -33,12 +21,12 @@ const fetchBudget = () => {
   }
 
   return function (dispatch) {
-    dispatch(requestBudget());
+    dispatch(requestBudgetAction());
     return fetch(API_BASE + 'budget')
       .then(handleErrors)
       .then(response => response.json())
       .then((budgetItems) => {
-        dispatch(recieveBudget(budgetItems));
+        dispatch(recieveBudgetAction(budgetItems));
       })
       .catch((err) => {
         console.error('Error: ', err);
@@ -63,4 +51,36 @@ export function fetchBudgetIfNeeded() {
       return Promise.resolve();
     }
   };
+}
+const addBudgetItemAction = (item) => {
+  return {
+    type: 'ADD_BUDGET_ITEM',
+    item: item
+  };
+};
+
+export function addBudgetItem(item) {
+  const data = new FormData();
+  data.append('json', JSON.stringify(item))
+  return (dispatch) => {
+    return fetch(API_BASE + 'budget', {method: 'POST', body: data})
+      .then((response) => {
+        if(response.statusText == 200){
+          // It was added
+          dispatch(addBudgetItemAction(item));
+          return {
+            added: true
+          };
+        } else {
+          // It was not added
+          
+        }
+      })
+      .catch((err) => {
+        return {
+          added: false,
+          error: err
+        }
+      });
+  }
 }
