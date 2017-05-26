@@ -3,7 +3,6 @@ import BudgetCategory from './BudgetCategory';
 
 export default class BudgetList extends React.Component {
   constructor(props) {
-    console.log('props: ', props);
     props.fetch();
     super(props);
     this.state = {
@@ -16,7 +15,7 @@ export default class BudgetList extends React.Component {
         hidden: Object.assign({}, this.state.hidden, newHidden)
       };
       this.setState(Object.assign({}, this.state, newState));
-    }
+    };
   }
 
   render() {

@@ -14,11 +14,12 @@ const recieveBudgetAction = (categories) => {
   };
 };
 
+function handleErrors(response) {
+    if (!response.ok) throw Error(response.statusText);
+    return response;
+}
+
 const fetchBudget = () => {
-  function handleErrors(response) {
-      if (!response.ok) throw Error(response.statusText);
-      return response;
-  }
 
   return function (dispatch) {
     dispatch(requestBudgetAction());
@@ -64,17 +65,11 @@ export function addBudgetItem(item) {
   data.append('json', JSON.stringify(item))
   return (dispatch) => {
     return fetch(API_BASE + 'budget', {method: 'POST', body: data})
+      .then(handleErrors)
+      .then(response => response.json())
       .then((response) => {
-        if(response.statusText == 200){
-          // It was added
-          dispatch(addBudgetItemAction(item));
-          return {
-            added: true
-          };
-        } else {
-          // It was not added
-          
-        }
+        if(response.added) dispatch(addBudgetItemAction(item));
+        return response;
       })
       .catch((err) => {
         return {

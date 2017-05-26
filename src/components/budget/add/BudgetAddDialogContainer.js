@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import BudgetAddDialog from './BudgetAddDialog';
-import {fetchBudgetIfNeeded} from '../BudgetActions';
+import {addBudgetItem} from '../BudgetActions';
 
 const mapStateToProps = (state) => {
   return {
@@ -10,8 +10,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetch: () => {
-      return dispatch(fetchBudgetIfNeeded());
+    addBudgetItem: () => {
+      return dispatch(addBudgetItem());
     }
   };
 };
