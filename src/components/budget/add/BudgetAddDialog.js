@@ -11,7 +11,10 @@ export default class BudgetAddDialog extends React.Component {
 
     this.state = {
       frequencyValue: 0,
-      categoryValue: 0
+      categoryValue: 0,
+      newCategoryNameError: '',
+      newBudgetItemNameError: '',
+      newBudgetItemAmountError: ''
     };
 
     this.handleChangeFrequency = (_e, _i, value) => {
@@ -54,7 +57,7 @@ export default class BudgetAddDialog extends React.Component {
         case 2:
           return 'WEEKLY';
       }
-    }
+    };
 
     this.submit = () => {
       let category = '';
@@ -68,15 +71,31 @@ export default class BudgetAddDialog extends React.Component {
         name: this.newBudgetItemName,
         category: category,
         period: getPeriod(),
-        amount: this.newBudgetItemAmount
-      }
+        amount: this.newBudgetItemAmount,
+        type: 'VALUE'
+      };
       this.props.addBudgetItem(item).then(res => {
-        console.log(res);
         if(res.added){
           this.props.handleClose;
         } else {
-          // TODO: Mark this message on the UI
-          console.log(res.error);
+          const errors = res.error.split('\n');
+          this.setState(Object.assign({}, this.state, {newCategoryNameError: ''}));
+          this.setState(Object.assign({}, this.state, {newBudgetItemNameError: ''}));
+          this.setState(Object.assign({}, this.state, {newBudgetItemAmountError: ''}));
+          errors.forEach((err) => {
+            function ucFirst(string){
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }
+            if(err.includes('category')){
+              this.setState(Object.assign({}, this.state, {newCategoryNameError: ucFirst(err)}));
+            }
+            if(err.includes('name')){
+              this.setState(Object.assign({}, this.state, {newBudgetItemNameError: ucFirst(err)}));
+            }
+            if(err.includes('amount')){
+              this.setState(Object.assign({}, this.state, {newBudgetItemAmountError: ucFirst(err)}));
+            }
+          });
         }
       })
       .catch(err => {
@@ -87,7 +106,7 @@ export default class BudgetAddDialog extends React.Component {
   
   render() {
     this.categories = this.props.categories.map((name, i) => <MenuItem value={i} primaryText={name} key={i} />);
-    this.categories.push(<MenuItem value={-1} primaryText='New Category' key={-1} />);
+    this.categories.push(<MenuItem value={-1} primaryText="New Category" key={-1} />);
 
     const actions = [
       <FlatButton
@@ -118,6 +137,7 @@ export default class BudgetAddDialog extends React.Component {
             hintText="Rent"
             floatingLabelText="Budget Item Name"
             onChange={this.newBudgetItemNameChange}
+            errorText={this.state.newBudgetItemNameError}
             />
         </div>
 
@@ -128,6 +148,7 @@ export default class BudgetAddDialog extends React.Component {
               floatingLabelText="Amount"
               type="number"
               onChange={this.newBudgetItemAmountChange}
+              errorText={this.state.newBudgetItemAmountError}
               />
           </div>
           <div>
@@ -159,6 +180,7 @@ export default class BudgetAddDialog extends React.Component {
             hintText="Utilities"
             floatingLabelText="New Category Name"
             onChange={this.newCategoryOnChange}
+            errorText={this.state.newCategoryNameError}
             />
         </div>
       </Dialog>

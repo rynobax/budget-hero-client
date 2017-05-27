@@ -10,8 +10,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addBudgetItem: () => {
-      return dispatch(addBudgetItem());
+    addBudgetItem: (item) => {
+      return dispatch(addBudgetItem(item));
     }
   };
 };

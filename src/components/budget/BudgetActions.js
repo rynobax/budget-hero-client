@@ -61,10 +61,15 @@ const addBudgetItemAction = (item) => {
 };
 
 export function addBudgetItem(item) {
-  const data = new FormData();
-  data.append('json', JSON.stringify(item))
   return (dispatch) => {
-    return fetch(API_BASE + 'budget', {method: 'POST', body: data})
+    return fetch(API_BASE + 'budget', {
+      method: 'POST', 
+      body: JSON.stringify(item),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
       .then(handleErrors)
       .then(response => response.json())
       .then((response) => {
