@@ -14,7 +14,7 @@ export default class BudgetItem extends React.Component {
       hoverable={true}
       {...rowProps}>
         <TableRowColumn>{item.name}</TableRowColumn>
-        <TableRowColumn>{item.amount}</TableRowColumn>
+        <TableRowColumn>{'$' + item.amount}</TableRowColumn>
       </TableRow>
     );
   }
