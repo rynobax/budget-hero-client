@@ -40,13 +40,15 @@ export default class BudgetCategory extends React.Component {
       style={tableStyle}>
         <TableBody
         showRowHover={true}>
-          {this.props.category.items.map((item, i) => {
-            return (
-              <BudgetItem 
-              key={i}
-              item={item}
-              />
-            );
+          {this.props.category.items
+            .sort((a, b) => a.name > b.name)
+            .map((item, i) => {
+              return (
+                <BudgetItem 
+                key={i}
+                item={item}
+                />
+              );
           })}
         </TableBody>
       </Table>

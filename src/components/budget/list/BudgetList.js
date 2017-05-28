@@ -21,15 +21,17 @@ export default class BudgetList extends React.Component {
   render() {
     return (
       <div>
-        {this.props.categories.map((category, i) => {
-          return (
-            <BudgetCategory
-            key={i}
-            category={category}
-            onCheck={this.onCheck.bind(null, i)}
-            hidden={this.state.hidden[i] || false}
-            />
-          );
+        {this.props.categories
+          .sort((a, b) => a.name > b.name)
+          .map((category, i) => {
+            return (
+              <BudgetCategory
+              key={i}
+              category={category}
+              onCheck={this.onCheck.bind(null, i)}
+              hidden={this.state.hidden[i] || false}
+              />
+            );
         })}
       </div>
     );

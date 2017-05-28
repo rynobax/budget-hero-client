@@ -76,7 +76,7 @@ export default class BudgetAddDialog extends React.Component {
       };
       this.props.addBudgetItem(item).then(res => {
         if(res.added){
-          this.props.handleClose;
+          this.props.handleClose();
         } else {
           const errors = res.error.split('\n');
           this.setState(Object.assign({}, this.state, {newCategoryNameError: ''}));
@@ -105,7 +105,7 @@ export default class BudgetAddDialog extends React.Component {
   }
   
   render() {
-    this.categories = this.props.categories.map((name, i) => <MenuItem value={i} primaryText={name} key={i} />);
+    this.categories = this.props.categories.sort().map((name, i) => <MenuItem value={i} primaryText={name} key={i} />);
     this.categories.push(<MenuItem value={-1} primaryText="New Category" key={-1} />);
 
     const actions = [
