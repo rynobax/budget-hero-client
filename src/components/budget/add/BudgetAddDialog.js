@@ -56,7 +56,19 @@ export default class BudgetAddDialog extends React.Component {
           return 'MONTHLY';
         case 2:
           return 'WEEKLY';
+        case 3:
+          return 'PERCENT';
       }
+    };
+    
+    this.percentStyle = () => {
+      if(getPeriod() == 'PERCENT') return {};
+      return {display: "none"};
+    };
+    
+    this.valueStyle = () => {
+      if(getPeriod() == 'PERCENT') return {display: "none"};
+      return {};
     };
 
     this.submit = () => {
@@ -143,13 +155,26 @@ export default class BudgetAddDialog extends React.Component {
 
         <div style={{display: "flex"}}>
           <div>
-            <TextField
-              hintText="500.00"
-              floatingLabelText="Amount"
-              type="number"
-              onChange={this.newBudgetItemAmountChange}
-              errorText={this.state.newBudgetItemAmountError}
-              />
+            <div style={this.valueStyle()}>
+              $
+              <TextField
+                hintText="500.00"
+                floatingLabelText="Amount"
+                type="number"
+                onChange={this.newBudgetItemAmountChange}
+                errorText={this.state.newBudgetItemAmountError}
+                />
+            </div>
+            <div style={this.percentStyle()}>
+              %
+              <TextField
+                hintText="500.00"
+                floatingLabelText="Amount"
+                type="number"
+                onChange={this.newBudgetItemAmountChange}
+                errorText={this.state.newBudgetItemAmountError}
+                />
+            </div>
           </div>
           <div>
             <SelectField
@@ -160,6 +185,7 @@ export default class BudgetAddDialog extends React.Component {
               <MenuItem value={0} primaryText="Annually" />
               <MenuItem value={1} primaryText="Monthly" />
               <MenuItem value={2} primaryText="Weekly" />
+              <MenuItem value={3} primaryText="Percentage" />
             </SelectField>
           </div>
         </div>
