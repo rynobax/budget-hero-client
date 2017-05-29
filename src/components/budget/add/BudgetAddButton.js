@@ -1,7 +1,7 @@
 import React from 'react';
-import FontIcon from 'material-ui/FontIcon';
-import RaisedButton from 'material-ui/RaisedButton';
 import BudgetAddDialogContainer from './BudgetAddDialogContainer';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 export default class BudgetAddButton extends React.Component {
   constructor() {
@@ -21,17 +21,22 @@ export default class BudgetAddButton extends React.Component {
 
   render() {
     return (
-      <div style={this.props.divStyle}>
-        <RaisedButton 
-          icon={<FontIcon className="material-icons">add_circle</FontIcon>}
-          onTouchTap={this.handleOpen} 
-          style={this.props.buttonStyle}/>
+      <FloatingActionButton
+        mini={true}
+        style={{
+            position: "fixed",
+            right: "15px",
+            bottom: "15px"
+          }}
+        onTouchTap={this.handleOpen}
+        >
+        <ContentAdd />
         <BudgetAddDialogContainer {...{
           handleOpen: this.handleOpen,
           handleClose: this.handleClose,
           open: this.state.open
           }}/>
-      </div>
+      </FloatingActionButton>
     );
   }
 }

@@ -153,41 +153,37 @@ export default class BudgetAddDialog extends React.Component {
             />
         </div>
 
-        <div style={{display: "flex"}}>
-          <div>
-            <div style={this.valueStyle()}>
-              $
-              <TextField
-                hintText="500.00"
-                floatingLabelText="Amount"
-                type="number"
-                onChange={this.newBudgetItemAmountChange}
-                errorText={this.state.newBudgetItemAmountError}
-                />
-            </div>
-            <div style={this.percentStyle()}>
-              %
-              <TextField
-                hintText="500.00"
-                floatingLabelText="Amount"
-                type="number"
-                onChange={this.newBudgetItemAmountChange}
-                errorText={this.state.newBudgetItemAmountError}
-                />
-            </div>
+        <div>
+          <div style={this.valueStyle()}>
+            <TextField
+              hintText="500.00"
+              floatingLabelText="Amount"
+              type="number"
+              onChange={this.newBudgetItemAmountChange}
+              errorText={this.state.newBudgetItemAmountError}
+              />
           </div>
-          <div>
-            <SelectField
-              floatingLabelText="Frequency"
-              value={this.state.frequencyValue}
-              onChange={this.handleChangeFrequency}
-            >
-              <MenuItem value={0} primaryText="Annually" />
-              <MenuItem value={1} primaryText="Monthly" />
-              <MenuItem value={2} primaryText="Weekly" />
-              <MenuItem value={3} primaryText="Percentage" />
-            </SelectField>
+        </div>
+          <div style={this.percentStyle()}>
+            <TextField
+              hintText="10"
+              floatingLabelText="Percentage"
+              type="number"
+              onChange={this.newBudgetItemAmountChange}
+              errorText={this.state.newBudgetItemAmountError}
+              />
           </div>
+        <div>
+          <SelectField
+            floatingLabelText="Frequency"
+            value={this.state.frequencyValue}
+            onChange={this.handleChangeFrequency}
+          >
+            <MenuItem value={0} primaryText="Annually" />
+            <MenuItem value={1} primaryText="Monthly" />
+            <MenuItem value={2} primaryText="Weekly" />
+            <MenuItem value={3} primaryText="Percentage" />
+          </SelectField>
         </div>
         
         <div>

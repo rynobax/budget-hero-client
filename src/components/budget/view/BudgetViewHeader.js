@@ -1,27 +1,40 @@
 import React from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import FontIcon from 'material-ui/FontIcon';
-import BudgetAddButton from '../add/BudgetAddButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import TextField from 'material-ui/TextField';
 
-const buttonStyle = {
-  width: '100%',
-  margin: 'auto'
-};
 const divStyle = {
   padding: 12,
-  flex: 1
+  flex: 1,
+  height: 60
 };
 
-const BudgetListHeader = () => {
+const BudgetListHeader = (props) => {
   return (
-    <div style={{display: 'flex'}}>
+    <div style={{
+      display: 'flex'
+      }}>
       <div style={divStyle}>
-        <RaisedButton
-          icon={<FontIcon className="material-icons">create</FontIcon>}
-          style={buttonStyle}
+        <TextField
+          hintText="20000"
+          floatingLabelText="Income"
+          floatingLabelFixed={true}
+          inputStyle={{color: "green"}}
         />
       </div>
-      <BudgetAddButton {...{buttonStyle: buttonStyle, divStyle: divStyle}}/>
+      <div style={divStyle}>
+        <SelectField
+          floatingLabelText="Frequency"
+          value={props.periodValue}
+          onChange={props.handleChange}
+          style={{width: "100%"}}
+        >
+          <MenuItem value={1} primaryText="Daily" />
+          <MenuItem value={2} primaryText="Weekly" />
+          <MenuItem value={3} primaryText="Monthly" />
+          <MenuItem value={4} primaryText="Yearly" />
+        </SelectField>
+      </div>
     </div>
   );
 };

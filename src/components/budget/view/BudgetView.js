@@ -1,14 +1,27 @@
 import React from 'react';
 import BudgetViewHeader from './BudgetViewHeader';
 import BudgetList from '../list/BudgetList';
+import BudgetAddButton from '../add/BudgetAddButton';
 
-const BudgetView = (props) => {
-  return (
-    <div>
-      <BudgetViewHeader />
-      <BudgetList {...{categories: props.categories, fetch: props.fetch}}/>
-    </div>
+export default class BudgetView extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      periodValue: 1,
+    };
+    this.handleChange = (_e, _i, value) => this.setState({periodValue: value});
+  }
+
+  render(){
+    return(
+      <div>
+        <BudgetViewHeader {...{
+            periodValue: this.state.periodValue,
+            handleChange: this.handleChange
+          }}/>
+        <BudgetList {...{categories: this.props.categories, fetch: this.props.fetch}}/>
+        <BudgetAddButton/>
+      </div>
     );
-};
-
-export default BudgetView;
+  }
+}
