@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import BudgetAddDialog from './BudgetAddDialog';
 import {addBudgetItem} from '../BudgetActions';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({budget}) => {
   return {
-      categories: state.budget.categories.map((e) => e.name)
+      categories: budget.categories.map((e) => e.name)
   };
 };
 

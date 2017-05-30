@@ -18,10 +18,6 @@ const styles = {
 };
 
 export default class BudgetCategory extends React.Component {
-  constructor() {
-    super();
-  }
-
   render () {
     const tableStyle = {};
     if(this.props.hidden){

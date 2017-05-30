@@ -4,8 +4,8 @@ import BudgetList from '../list/BudgetList';
 import BudgetAddButton from '../add/BudgetAddButton';
 
 export default class BudgetView extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       periodValue: 1,
     };

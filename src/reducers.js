@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 import budget from './components/budget/BudgetReducer';
+import auth from './components/auth/AuthReducer';
 
 const budgetApp = combineReducers({
-  budget
+  budget,
+  auth
 });
 export default budgetApp;

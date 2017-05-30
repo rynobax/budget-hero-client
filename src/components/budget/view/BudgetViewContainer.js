@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import BudgetView from './BudgetView';
 import {fetchBudgetIfNeeded} from '../BudgetActions';
 
-const mapStateToProps = (state) => {
-  return state.budget;
+const mapStateToProps = ({budget}) => {
+  return budget;
 };
 
 const mapDispatchToProps = (dispatch) => {
