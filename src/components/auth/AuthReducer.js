@@ -1,6 +1,7 @@
 export default (state = {
     isLoggedIn: false
   }, action) => {
+  console.log('action: ', action);
   switch (action.type){
     case 'LOGIN':
       return Object.assign({}, state, {

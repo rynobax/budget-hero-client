@@ -18,7 +18,7 @@ export function logout(){
       .then(handleErrors)
       .then(response => response.json())
       .then((response) => {
-        if(response.loggedOut) dispatch(logoutAction);
+        if(response.loggedOut) dispatch(logoutAction());
         return response;
       })
       .catch((err) => {
@@ -36,13 +36,21 @@ const loginAction = () => {
   };
 };
 
-export function login(){
+export function login(username, password){
   return (dispatch) => {
-    return fetch(API_BASE + 'auth/login', {method: 'POST'})
+    return fetch(API_BASE + 'auth/login', {
+        method: 'POST', 
+        body: JSON.stringify({username: username, password: password}),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
       .then(handleErrors)
       .then(response => response.json())
       .then((response) => {
-        if(response.loggedIn) dispatch(loginAction);
+        console.log(response);
+        if(response.loggedIn) dispatch(loginAction());
         return response;
       })
       .catch((err) => {
@@ -54,3 +62,25 @@ export function login(){
   };
 }
 
+export function register(username, password){
+  return fetch(API_BASE + 'auth/register', {
+      method: 'POST', 
+      body: JSON.stringify({username: username, password: password}),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(handleErrors)
+    .then(response => response.json())
+    .then((response) => {
+      if(response.registered) login(username, password).then(console.log);
+      return response;
+    })
+    .catch((err) => {
+      return {
+        registered: false,
+        error: err
+      };
+    });
+}

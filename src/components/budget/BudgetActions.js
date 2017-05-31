@@ -20,7 +20,6 @@ function handleErrors(response) {
 }
 
 const fetchBudget = () => {
-
   return function (dispatch) {
     dispatch(requestBudgetAction());
     return fetch(API_BASE + 'budget')

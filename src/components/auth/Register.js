@@ -18,11 +18,11 @@ export default class AuthPage extends React.Component {
     this.onPasswordChange = (_e, newValue) => this.password = newValue;
 
     this.submit = () => {
-      props.login(this.username, this.password)
+      props.register(this.username, this.password)
         .then((res) => {
           this.setState(Object.assign({}, this.state, {usernameError: ''}));
           this.setState(Object.assign({}, this.state, {passwordError: ''}));
-          if(!res.loggedIn){
+          if(!res.registered){
             if(res.error){
               const errors = res.error.split('\n');
               errors.forEach((err) => {

@@ -2,6 +2,7 @@ export default (state = {
     categories: [],
     isFetching: false
   }, action) => {
+    console.log('budget action: ', action);
   switch (action.type){
     case 'REQUEST_BUDGET':
       return Object.assign({}, state, {
