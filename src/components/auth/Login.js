@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { browserHistory } from 'react-router';
 
 export default class AuthPage extends React.Component {
   constructor(props){
@@ -31,10 +32,13 @@ export default class AuthPage extends React.Component {
                 if(err.toLowerCase().includes('password')) this.setState(Object.assign({}, this.state, {passwordError: err}));
               });
             } else {
+              // We didn't log in but got an error.  This should never happen
               console.log(res);
             }
           } else {
-            // should submit login
+            // Login was successful so redirect
+            console.log('success');
+            browserHistory.push('/');
           }
         });
     };
