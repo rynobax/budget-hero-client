@@ -15,21 +15,27 @@ const recieveBudgetAction = (categories) => {
 };
 
 function handleErrors(response) {
-    if (!response.ok) throw Error(response.statusText);
-    return response;
+    if (!response.ok) {
+      return response.text().then((text) => {
+        throw Error(text);
+      }).catch(err => {
+        throw Error(err);
+      });
+    }
+    else return response;
 }
 
 const fetchBudget = () => {
   return function (dispatch) {
     dispatch(requestBudgetAction());
-    return fetch(API_BASE + 'budget')
+    return fetch(API_BASE + 'budget', {credentials: 'include'})
       .then(handleErrors)
       .then(response => response.json())
       .then((budgetItems) => {
         dispatch(recieveBudgetAction(budgetItems));
       })
       .catch((err) => {
-        console.error('Error: ', err);
+        console.error(err);
       });
   };
 };
@@ -67,7 +73,8 @@ export function addBudgetItem(item) {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include'
     })
       .then(handleErrors)
       .then(response => response.json())
