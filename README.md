@@ -1,3 +1,4 @@
 # TODO: 
-  * Remove edit button
-  * All edit actions can take place when you click on an item
+  * Move main App components into App folder
+  * Clicking on budget entry functionality
+  * Converting entries to the current granularity

@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 import expect from 'expect';
-import {API_BASE} from '../../config';
+import {API_BASE} from '../../../config';
 import {fetchBudgetIfNeeded} from './BudgetActions';
 
 const middlewares = [ thunk ];
