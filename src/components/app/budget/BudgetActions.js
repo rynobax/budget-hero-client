@@ -58,6 +58,7 @@ export function fetchBudgetIfNeeded() {
     }
   };
 }
+
 const addBudgetItemAction = (item) => {
   return {
     type: 'ADD_BUDGET_ITEM',
@@ -86,7 +87,40 @@ export function addBudgetItem(item) {
         return {
           added: false,
           error: err
-        }
+        };
       });
-  }
+  };
+}
+
+const editBudgetItemAction = (item) => {
+  return {
+    type: 'EDIT_BUDGET_ITEM',
+    item: item
+  };
+};
+
+export function editBudgetItem(item) {
+  return (dispatch) => {
+    return fetch(API_BASE + 'budget', {
+      method: 'PUT', 
+      body: JSON.stringify(item),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    })
+      .then(handleErrors)
+      .then(response => response.json())
+      .then((response) => {
+        if(response.updated) dispatch(editBudgetItemAction(item));
+        return response;
+      })
+      .catch((err) => {
+        return {
+          updated: false,
+          error: err
+        };
+      });
+  };
 }
