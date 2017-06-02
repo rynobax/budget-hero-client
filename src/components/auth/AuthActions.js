@@ -20,7 +20,7 @@ const logoutAction = () => {
 
 export function logout(){
   return (dispatch) => {
-    return fetch(API_BASE + 'auth/logout', {method: 'POST', credentials: 'include'})
+    return fetch(API_BASE + 'user/logout', {method: 'POST', credentials: 'include'})
       .then(handleErrors)
       .then(response => response.json())
       .then((response) => {
@@ -44,7 +44,7 @@ const loginAction = () => {
 
 export function login(username, password){
   return (dispatch) => {
-    return fetch(API_BASE + 'auth/login', {
+    return fetch(API_BASE + 'user/login', {
         method: 'POST', 
         body: JSON.stringify({username: username, password: password}),
         headers: {
@@ -69,7 +69,7 @@ export function login(username, password){
 }
 
 export function register(username, password){
-  return fetch(API_BASE + 'auth/register', {
+  return fetch(API_BASE + 'user/register', {
       method: 'POST', 
       body: JSON.stringify({username: username, password: password}),
       headers: {
