@@ -1,16 +1,15 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import { browserHistory } from 'react-router';
 
-export default class AuthPage extends React.Component {
+export default class Login extends React.Component {
   constructor(props){
     super(props);
     
     this.state = {
       usernameError: '',
       passwordError: ''
-    }
+    };
     
     this.username = '';
     this.onUsernameChange = (_e, newValue) => this.username = newValue;
@@ -21,9 +20,9 @@ export default class AuthPage extends React.Component {
     this.submit = () => {
       props.login(this.username, this.password)
         .then((res) => {
-          this.setState(Object.assign({}, this.state, {usernameError: ''}));
-          this.setState(Object.assign({}, this.state, {passwordError: ''}));
           if(!res.loggedIn){
+            this.setState(Object.assign({}, this.state, {usernameError: ''}));
+            this.setState(Object.assign({}, this.state, {passwordError: ''}));
             if(res.error){
               const errors = res.error.split('\n');
               errors.forEach((err) => {
@@ -36,9 +35,7 @@ export default class AuthPage extends React.Component {
               console.log(res);
             }
           } else {
-            // Login was successful so redirect
-            console.log('success');
-            browserHistory.push('/');
+            // Login was successful so we will be moved to the app
           }
         });
     };

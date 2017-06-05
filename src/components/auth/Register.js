@@ -2,14 +2,14 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-export default class AuthPage extends React.Component {
+export default class Register extends React.Component {
   constructor(props){
     super(props);
     
     this.state = {
       usernameError: '',
       passwordError: ''
-    }
+    };
     
     this.username = '';
     this.onUsernameChange = (_e, newValue) => this.username = newValue;
@@ -20,9 +20,9 @@ export default class AuthPage extends React.Component {
     this.submit = () => {
       props.register(this.username, this.password)
         .then((res) => {
-          this.setState(Object.assign({}, this.state, {usernameError: ''}));
-          this.setState(Object.assign({}, this.state, {passwordError: ''}));
           if(!res.registered){
+            this.setState(Object.assign({}, this.state, {usernameError: ''}));
+            this.setState(Object.assign({}, this.state, {passwordError: ''}));
             if(res.error){
               const errors = res.error.split('\n');
               errors.forEach((err) => {

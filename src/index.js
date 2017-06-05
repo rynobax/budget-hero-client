@@ -5,16 +5,15 @@ import 'babel-polyfill';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import EntryContainer from './components/EntryContainer';
 
 import configureStore from './configureStore';
-import routes from './routes';
 
 const store = configureStore();
 
 render(
   <Provider store={store}>
-    <Router routes={routes} history={browserHistory} />
+    <EntryContainer />
   </Provider>,
   document.getElementById('app')
 );
