@@ -5,7 +5,10 @@ node_js:
   - "6"
   - "5"
   - "4"
-script: yarn run test:CI
+script: yarn run test:CI&&yarn run just-build
 after_success:
   # Send coverage data to coveralls.
   - yarn run test:cover:CI
+deploy:
+  skip_cleanup: true
+  - yarn run deploy
