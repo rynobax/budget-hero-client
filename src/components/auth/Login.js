@@ -31,8 +31,8 @@ export default class Login extends React.Component {
                 if(err.toLowerCase().includes('password')) this.setState(Object.assign({}, this.state, {passwordError: err}));
               });
             } else {
-              // We didn't log in but got an error.  This should never happen
-              console.log(res);
+              // We didn't log in but didn't get an error.  This should never happen
+              console.log('Login failed with no error: ', res);
             }
           } else {
             // Login was successful so we will be moved to the app

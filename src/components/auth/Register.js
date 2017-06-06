@@ -31,7 +31,7 @@ export default class Register extends React.Component {
                 if(err.toLowerCase().includes('password')) this.setState(Object.assign({}, this.state, {passwordError: err}));
               });
             } else {
-              console.log(res);
+              console.log('Registered failed without an error: ', res);
             }
           } else {
             // should submit login

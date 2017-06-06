@@ -35,7 +35,7 @@ const fetchBudget = () => {
         dispatch(recieveBudgetAction(budgetItems));
       })
       .catch((err) => {
-        console.error(err);
+        console.error('Error in fetchBudget: ', err);
       });
   };
 };

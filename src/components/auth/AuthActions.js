@@ -81,7 +81,7 @@ export function register(username, password){
     .then(handleErrors)
     .then(response => response.json())
     .then((response) => {
-      if(response.registered) login(username, password).then(console.log);
+      if(response.registered) login(username, password);
       return response;
     })
     .catch((err) => {
