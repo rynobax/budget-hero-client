@@ -7,6 +7,4 @@ function mapStateToProps({auth}) {
   };
 }
 
-console.log('In entry container');
-
 export default connect(mapStateToProps)(Entry);

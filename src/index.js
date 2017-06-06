@@ -11,7 +11,6 @@ import configureStore from './configureStore';
 
 const store = configureStore();
 
-console.log('In index.js');
 render(
   <Provider store={store}>
     <EntryContainer />
