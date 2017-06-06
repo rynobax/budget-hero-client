@@ -1,13 +1,12 @@
 language: node_js
-cache: yarn
 node_js:
   - "6"
 script:
-  - yarn run test:CI
-  - yarn run just-build
+  - npm run test:CI
+  - npm run just-build
 after_success:
   # Send coverage data to coveralls.
-  - yarn run test:cover:CI
+  - npm run test:cover:CI
 deploy:
   skip_cleanup: true
-  script: yarn run deploy
+  script: npm run deploy
