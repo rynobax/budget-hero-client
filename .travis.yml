@@ -8,5 +8,8 @@ after_success:
   # Send coverage data to coveralls.
   - npm run test:cover:CI
 deploy:
+  provider: pages
   skip_cleanup: true
-  script: npm run deploy
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
