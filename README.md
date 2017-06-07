@@ -1,4 +1,4 @@
+![](https://travis-ci.org/rynobax/budget-hero-server.svg?branch=master)
+
 # TODO: 
-  * Move main App components into App folder
-  * Clicking on budget entry functionality
   * Converting entries to the current granularity
