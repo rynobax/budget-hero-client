@@ -18,7 +18,9 @@ export default class Register extends React.Component {
     this.onPasswordChange = (_e, newValue) => this.password = newValue;
 
     this.submit = () => {
-      props.register(this.username, this.password)
+      const username = this.username;
+      const password = this.password;
+      props.register(username, password)
         .then((res) => {
           if(!res.registered){
             this.setState(Object.assign({}, this.state, {usernameError: ''}));
@@ -34,7 +36,7 @@ export default class Register extends React.Component {
               console.log('Registered failed without an error: ', res);
             }
           } else {
-            // should submit login
+            props.login(username, password);
           }
         });
     };

@@ -53,6 +53,9 @@ export function login(username, password){
         },
         credentials: 'include'
       })
+      .then(res => {
+        return res;
+      })
       .then(handleErrors)
       .then(response => response.json())
       .then((response) => {
@@ -80,10 +83,6 @@ export function register(username, password){
     })
     .then(handleErrors)
     .then(response => response.json())
-    .then((response) => {
-      if(response.registered) login(username, password);
-      return response;
-    })
     .catch((err) => {
       return {
         registered: false,

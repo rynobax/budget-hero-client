@@ -12,7 +12,7 @@ const AuthPage = (props) => {
           <Login {...{login: props.login}}/>
         </Tab>
         <Tab label="Register" >
-          <Register {...{register: props.register}}/>
+          <Register {...{register: props.register, login: props.login}}/>
         </Tab>
       </Tabs>
     </MuiThemeProvider>
