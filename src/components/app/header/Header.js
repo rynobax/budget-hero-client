@@ -1,10 +1,10 @@
 import React from 'react';
-import Menu from './Menu';
+import TitleContainer from './TitleContainer';
 import Tabs from './Tabs';
 
 const Header = () => (
   <div>
-    <Menu />
+    <TitleContainer />
     <Tabs />
   </div>
 );

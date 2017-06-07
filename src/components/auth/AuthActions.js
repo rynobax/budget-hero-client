@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import {API_BASE} from '../../config';
 
 function handleErrors(response) {
+        console.log(response);
   if (!response.ok) {
     return response.text().then((text) => {
       throw Error(text);
@@ -19,8 +20,17 @@ const logoutAction = () => {
 };
 
 export function logout(){
+  console.log('logout');
   return (dispatch) => {
-    return fetch(API_BASE + 'user/logout', {method: 'POST', credentials: 'include'})
+    return fetch(API_BASE + 'user/logout',
+      {
+        method: 'POST', 
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
       .then(handleErrors)
       .then(response => response.json())
       .then((response) => {
@@ -89,4 +99,32 @@ export function register(username, password){
         error: err
       };
     });
+}
+
+const identityAction = (identity) => {
+  return {
+    type: 'IDENTITY',
+    identity: identity
+  };
+};
+
+export function identity(){
+  return (dispatch) => {
+    return fetch(API_BASE + 'user/identity', {
+        method: 'GET',
+        credentials: 'include'
+      })
+      .then(handleErrors)
+      .then(response => response.json())
+      .then((response) => {
+        if(response.identified) dispatch(identityAction(response.identity));
+        return response;
+      })
+      .catch((err) => {
+        return {
+          registered: false,
+          error: err
+        };
+      });
+  };
 }

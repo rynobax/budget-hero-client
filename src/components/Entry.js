@@ -9,8 +9,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 import {
-  cyan500, cyan700,
-  pinkA200,
   grey100, grey300, grey400, grey500,
   white, darkBlack, fullBlack,
 } from 'material-ui/styles/colors';
@@ -37,6 +35,7 @@ const theme = getMuiTheme({
 
 
 const Entry = (props) => {
+  props.identity(); // Get identity to see if the user is logged in
   if (props.isLoggedIn) {
     return (
       <MuiThemeProvider muiTheme={theme}>

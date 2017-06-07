@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Entry from './Entry';
+import {identity} from './auth/AuthActions';
 
 function mapStateToProps({auth}) {
   return {
@@ -7,4 +8,11 @@ function mapStateToProps({auth}) {
   };
 }
 
-export default connect(mapStateToProps)(Entry);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    identity: () => dispatch(identity()),
+  };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Entry);
