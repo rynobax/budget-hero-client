@@ -44,6 +44,7 @@ class Login extends React.Component {
   }
 
   render() {
+    console.log('this.props.muiTheme.palette: ', this.props.muiTheme.palette);
     return (
       <div style={{textAlign: "center"}}>
         <Paper style={this.props.paperStyle} zDepth={this.props.paperDepth} >
