@@ -4,4 +4,6 @@
 Budgeting web app - React + Redux
 
 # TODO: 
-  * Converting entries to the current granularity
+  * Edit entries
+  * Remove entries
+  * Change budget timeframe and have values update
