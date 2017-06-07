@@ -2,7 +2,6 @@ import fetch from 'isomorphic-fetch';
 import {API_BASE} from '../../config';
 
 function handleErrors(response) {
-        console.log(response);
   if (!response.ok) {
     return response.text().then((text) => {
       throw Error(text);
@@ -20,7 +19,6 @@ const logoutAction = () => {
 };
 
 export function logout(){
-  console.log('logout');
   return (dispatch) => {
     return fetch(API_BASE + 'user/logout',
       {

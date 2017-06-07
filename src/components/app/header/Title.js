@@ -26,7 +26,6 @@ const Title = (props) => (
       position: "fixed",
       height: "60px"
       }}
-    onLeftIconButtonTouchTap={console.log('boop')}
   />
 );
 
