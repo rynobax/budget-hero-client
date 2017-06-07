@@ -9,8 +9,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 import {
-  grey100, grey300, grey400, grey500,
-  white, darkBlack, fullBlack,
+  grey100, grey500,
+  white, fullBlack,
 } from 'material-ui/styles/colors';
 
 const theme = getMuiTheme({
