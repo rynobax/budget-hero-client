@@ -1,4 +1,9 @@
+[![Build Status](https://travis-ci.org/rynobax/budget-hero-client.svg?branch=master)](https://travis-ci.org/rynobax/budget-hero-client)
+
+# Budget Hero Client
+Budgeting web app - React + Redux
+
 # TODO: 
-  * Move main App components into App folder
-  * Clicking on budget entry functionality
-  * Converting entries to the current granularity
+  * Edit entries
+  * Remove entries
+  * Change budget timeframe and have values update
