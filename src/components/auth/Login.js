@@ -1,8 +1,10 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import muiThemeable from 'material-ui/styles/muiThemeable';
+import Paper from 'material-ui/Paper';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor(props){
     super(props);
     
@@ -43,27 +45,32 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div>
-        <TextField
-          floatingLabelText="Username"
-          floatingLabelFixed={true}
-          type={'text'}
-          onChange={this.onUsernameChange}
-          errorText={this.state.usernameError}
-        /><br />  
-        <TextField
-          floatingLabelText="Password"
-          floatingLabelFixed={true}
-          type={'password'}
-          onChange={this.onPasswordChange}
-          errorText={this.state.passwordError}
-        /><br />
-        <RaisedButton
-          label="Submit"
-          primary={true}
-          onTouchTap={this.submit}
-        />
+      <div style={{textAlign: "center"}}>
+        <Paper style={this.props.paperStyle} zDepth={this.props.paperDepth} >
+          <h1 style={{color: this.props.muiTheme.palette.textColor}}>Login</h1>
+          <TextField
+            floatingLabelText="Username"
+            floatingLabelFixed={true}
+            type={'text'}
+            onChange={this.onUsernameChange}
+            errorText={this.state.usernameError}
+          /><br />  
+          <TextField
+            floatingLabelText="Password"
+            floatingLabelFixed={true}
+            type={'password'}
+            onChange={this.onPasswordChange}
+            errorText={this.state.passwordError}
+          /><br />
+          <RaisedButton
+            label="Submit"
+            primary={true}
+            onTouchTap={this.submit}
+          />
+        </Paper>
       </div>
     );
   }
 }
+
+export default muiThemeable()(Login);
