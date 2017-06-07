@@ -3,10 +3,21 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import {getPeriodByName, getPeriodByValue} from '../period';
+
+const getAdjustedValue = (viewPeriodValue, income, {period, amount}) => {
+  if(period.toLowerCase() == 'percent') {
+    return income * (amount / 100);
+  } else {
+    const viewPeriodDays = getPeriodByValue(viewPeriodValue).days;
+    const itemDays = getPeriodByName(period).days;
+    return amount * (viewPeriodDays / itemDays);
+  }
+};
 
 export default class BudgetItem extends React.Component {
   render() {
-    const { item, ...rowProps } = this.props;
+    const { periodValue, income, item, ...rowProps } = this.props;
     // Use these or don't send from server
     ///////
     return (
@@ -14,7 +25,9 @@ export default class BudgetItem extends React.Component {
       hoverable={true}
       {...rowProps}>
         <TableRowColumn>{item.name}</TableRowColumn>
-        <TableRowColumn>{'$' + item.amount}</TableRowColumn>
+        <TableRowColumn>
+          {'$' + getAdjustedValue(periodValue, income, item).toFixed(2)}
+        </TableRowColumn>
       </TableRow>
     );
   }

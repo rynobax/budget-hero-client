@@ -20,13 +20,14 @@ const BudgetListHeader = (props) => {
           floatingLabelText="Income"
           floatingLabelFixed={true}
           inputStyle={{color: "green"}}
+          onChange={props.handleIncomeChange}
         />
       </div>
       <div style={divStyle}>
         <SelectField
           floatingLabelText="Frequency"
           value={props.periodValue}
-          onChange={props.handleChange}
+          onChange={props.handlePeriodChange}
           style={{width: "100%"}}
         >
           <MenuItem value={1} primaryText="Daily" />

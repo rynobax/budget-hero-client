@@ -19,21 +19,35 @@ export default class BudgetList extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.props.categories
-          .sort((a, b) => a.name > b.name)
-          .map((category, i) => {
-            return (
-              <BudgetCategory
-              key={i}
-              category={category}
-              onCheck={this.onCheck.bind(null, i)}
-              hidden={this.state.hidden[i] || false}
-              />
-            );
-        })}
-      </div>
-    );
+    if(this.props.categories.length > 0){
+      return (
+        <div>
+          {this.props.categories
+            .sort((a, b) => a.name > b.name)
+            .map((category, i) => {
+              return (
+                <BudgetCategory
+                key={i}
+                category={category}
+                onCheck={this.onCheck.bind(null, i)}
+                hidden={this.state.hidden[i] || false}
+                periodValue={this.props.periodValue}
+                income={this.props.income}
+                />
+              );
+          })}
+        </div>
+      );
+    } else {
+      // They have not added any items
+      return(
+        <div>
+          <br/>
+          <h2>
+            Click the button in the bottom right corner to add an item!
+          </h2>
+        </div>
+      )
+    }
   }
 }

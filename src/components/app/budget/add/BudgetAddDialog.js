@@ -11,10 +11,20 @@ export default class BudgetAddDialog extends React.Component {
 
     this.state = {
       frequencyValue: 0,
-      categoryValue: 0,
+      categoryValue: props.categories.length > 0 ? 0 : -1,
       newCategoryNameError: '',
       newBudgetItemNameError: '',
       newBudgetItemAmountError: ''
+    };
+
+    this.clearErrors = () => {
+      this.setState(Object.assign({}, this.state, 
+        {
+          newCategoryNameError: '', 
+          newBudgetItemNameError: '',
+          newBudgetItemAmountError: ''
+        }
+      ));
     };
 
     this.handleChangeFrequency = (_e, _i, value) => {
@@ -87,13 +97,11 @@ export default class BudgetAddDialog extends React.Component {
         type: 'VALUE'
       };
       this.props.addBudgetItem(item).then(res => {
+        this.clearErrors();
         if(res.added){
           this.props.handleClose();
         } else {
           const errors = res.error.split('\n');
-          this.setState(Object.assign({}, this.state, {newCategoryNameError: ''}));
-          this.setState(Object.assign({}, this.state, {newBudgetItemNameError: ''}));
-          this.setState(Object.assign({}, this.state, {newBudgetItemAmountError: ''}));
           errors.forEach((err) => {
             function ucFirst(string){
                 return string.charAt(0).toUpperCase() + string.slice(1);
@@ -120,11 +128,16 @@ export default class BudgetAddDialog extends React.Component {
     this.categories = this.props.categories.sort().map((name, i) => <MenuItem value={i} primaryText={name} key={i} />);
     this.categories.push(<MenuItem value={-1} primaryText="New Category" key={-1} />);
 
+    const handleClose = () => {
+      this.clearErrors();
+      this.props.handleClose();
+    };
+
     const actions = [
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.props.handleClose}
+        onTouchTap={handleClose}
         key={0}
       />,
       <FlatButton
@@ -141,7 +154,7 @@ export default class BudgetAddDialog extends React.Component {
         actions={actions}
         modal={false}
         open={this.props.open}
-        onRequestClose={this.props.handleClose}
+        onRequestClose={handleClose}
         autoScrollBodyContent={true}
       >
         <div>

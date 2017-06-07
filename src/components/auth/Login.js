@@ -47,7 +47,9 @@ class Login extends React.Component {
     return (
       <div style={{textAlign: "center"}}>
         <Paper style={this.props.paperStyle} zDepth={this.props.paperDepth} >
-          <h1 style={{color: this.props.muiTheme.palette.textColor}}>Login</h1>
+          <h1 style={{color: this.props.muiTheme.palette.textColor}}>
+            Login to Budget Hero
+          </h1>
           <TextField
             floatingLabelText="Username"
             floatingLabelFixed={true}

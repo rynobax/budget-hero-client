@@ -43,6 +43,8 @@ export default class BudgetCategory extends React.Component {
                 <BudgetItem 
                 key={i}
                 item={item}
+                periodValue={this.props.periodValue}
+                income={this.props.income}
                 />
               );
           })}
