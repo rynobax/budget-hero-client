@@ -70,7 +70,7 @@ export function addBudgetItem(item) {
   return (dispatch) => {
     return fetch(API_BASE + 'budget', {
       method: 'POST', 
-      body: JSON.stringify(item),
+      body: JSON.stringify({item: item}),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
