@@ -8,6 +8,7 @@ const paperStyle = {
   margin: 20,
   textAlign: 'center',
   display: 'inline-block',
+  maxWidth: "100%"
 };
 const paperDepth = 2;
 
