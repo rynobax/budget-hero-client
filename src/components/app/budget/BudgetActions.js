@@ -80,7 +80,7 @@ export function addBudgetItem(item) {
       .then(handleErrors)
       .then(response => response.json())
       .then((response) => {
-        if(response.added) dispatch(addBudgetItemAction(item));
+        if(response.added) dispatch(addBudgetItemAction(response.item));
         return response;
       })
       .catch((err) => {

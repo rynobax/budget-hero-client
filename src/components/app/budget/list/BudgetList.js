@@ -30,6 +30,7 @@ export default class BudgetList extends React.Component {
                 key={i}
                 category={category}
                 categoryIndex={i}
+                isLastCategory={i == (this.props.categories.length-1)}
                 onCheck={this.onCheck.bind(null, i)}
                 hidden={this.state.hidden[i] || false}
                 periodValue={this.props.periodValue}
@@ -48,7 +49,7 @@ export default class BudgetList extends React.Component {
             Click the button in the bottom right corner to add an item!
           </h2>
         </div>
-      )
+      );
     }
   }
 }

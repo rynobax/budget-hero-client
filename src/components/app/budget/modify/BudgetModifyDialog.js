@@ -116,8 +116,7 @@ export default class BudgetModifyDialog extends React.Component {
       const id = this.props.templateItem.id;
       this.props.deleteBudgetItem(id).then(res => {
         if(res.deleted){
-          // Close dialog if it's not the last item in the category
-          if(this.props.templateCategoryLength > 1) this.props.handleClose();
+          if(!this.props.isLastItemInLastCategory) this.props.handleClose();
         } else {
           console.log('Error in deleteBudgetItem: ', res.error);
         }

@@ -22,11 +22,11 @@ export default class BudgetCategory extends React.Component {
     this.state = {
       modalOpen: false,
       templateItem: {},
-      templateCategoryLength: 0
+      isLastItemInLastCategory: false
     };
 
-    this.handleOpen = (item, templateCategoryLength) => {
-      this.setState({modalOpen: true, templateItem: item, templateCategoryLength});
+    this.handleOpen = (item, isLastItemInLastCategory) => {
+      this.setState({modalOpen: true, templateItem: item, isLastItemInLastCategory: isLastItemInLastCategory});
     };
 
     this.handleClose = () => {
@@ -52,7 +52,8 @@ export default class BudgetCategory extends React.Component {
       style={tableStyle}
       selectable={false}
       onCellClick={(rowNumber) => {
-        this.handleOpen(this.props.category.items[rowNumber], this.props.category.items.length);
+        this.handleOpen(this.props.category.items[rowNumber], 
+          this.props.category.items.length == 1 && this.props.isLastCategory); // isLastItemInLastCategory
       }}>
         <TableBody
         showRowHover={true}>
@@ -76,6 +77,7 @@ export default class BudgetCategory extends React.Component {
           open={this.state.modalOpen}
           templateItem={this.state.templateItem}
           templateCategoryLength={this.state.templateCategoryLength}
+          isLastItemInLastCategory={this.state.isLastItemInLastCategory}
       />
     </div>
     );
