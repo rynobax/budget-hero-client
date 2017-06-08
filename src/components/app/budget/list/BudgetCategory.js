@@ -3,10 +3,8 @@ import BudgetItem from './BudgetItem';
 import Checkbox from 'material-ui/Checkbox';
 import UpArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import DownArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
-import {
-  Table,
-  TableBody
-} from 'material-ui/Table';
+import { Table, TableBody } from 'material-ui/Table';
+import BudgetModifyDialogContainer from '../modify/BudgetModifyDialogContainer';
 
 const styles = {
   block: {
@@ -18,6 +16,24 @@ const styles = {
 };
 
 export default class BudgetCategory extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      modalOpen: false,
+      templateItem: {},
+      templateCategoryLength: 0
+    };
+
+    this.handleOpen = (item, templateCategoryLength) => {
+      this.setState({modalOpen: true, templateItem: item, templateCategoryLength});
+    };
+
+    this.handleClose = () => {
+      this.setState({modalOpen: false, templateItem: {}});
+    };
+  }
+
   render () {
     const tableStyle = {};
     if(this.props.hidden){
@@ -33,7 +49,11 @@ export default class BudgetCategory extends React.Component {
         onCheck={this.props.onCheck}
       />
       <Table
-      style={tableStyle}>
+      style={tableStyle}
+      selectable={false}
+      onCellClick={(rowNumber) => {
+        this.handleOpen(this.props.category.items[rowNumber], this.props.category.items.length);
+      }}>
         <TableBody
         showRowHover={true}>
           {this.props.category.items
@@ -50,6 +70,13 @@ export default class BudgetCategory extends React.Component {
           })}
         </TableBody>
       </Table>
+      <BudgetModifyDialogContainer 
+          handleClose={this.handleClose}
+          categoryIndex={this.props.categoryIndex}
+          open={this.state.modalOpen}
+          templateItem={this.state.templateItem}
+          templateCategoryLength={this.state.templateCategoryLength}
+      />
     </div>
     );
   }

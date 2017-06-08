@@ -18,6 +18,11 @@ export const Periods = [
     name: 'Yearly',
     value: 4,
     days: 365
+  },
+  {
+    name: 'Percent',
+    value: 5,
+    days: null
   }
 ];
 

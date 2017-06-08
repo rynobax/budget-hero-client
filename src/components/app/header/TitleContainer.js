@@ -2,8 +2,10 @@ import { connect } from 'react-redux';
 import Title from './Title';
 import {logout} from '../../auth/AuthActions';
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = ({auth}) => {
+  return {
+    identity: auth.identity
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

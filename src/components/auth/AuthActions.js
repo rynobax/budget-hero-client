@@ -109,7 +109,7 @@ const identityAction = (identity) => {
 export function identity(){
   return (dispatch) => {
     return fetch(API_BASE + 'user/identity', {
-        method: 'GET',
+        method: 'POST',
         credentials: 'include'
       })
       .then(handleErrors)

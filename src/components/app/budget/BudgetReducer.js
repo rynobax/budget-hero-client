@@ -22,32 +22,22 @@ function getCategoryIndexById(categories, id){
   }, -1);
 }
 
-function addBudgetItem(categories, action){
-  const {category, ...item} = action.item;
+function addBudgetItem(categories, item){
+  const {category, ...restItem} = item;
   const newCategories = categoriesCopy(categories);
   const categoryIndex = getCategoryIndexByCategory(newCategories, category);
   if(newCategories[categoryIndex] == undefined){
     newCategories.push({
       name: category,
-      items: [item]
+      items: [restItem]
     });
   }else{
-    newCategories[categoryIndex].items.push(item);
+    newCategories[categoryIndex].items.push(restItem);
   }
   return newCategories;
 }
 
-function deleteBudgetItemByCategory(categories, action){
-  const {category, id} = action.item;
-  const newCategories = categoriesCopy(categories);
-  const categoryIndex = getCategoryIndexByCategory(newCategories, category);
-  newCategories[categoryIndex].items = newCategories[categoryIndex].items.filter((e) => e.id !== id);
-  if(newCategories[categoryIndex].items.length < 1) newCategories.splice(categoryIndex, 1);
-  return newCategories;
-}
-
-function deleteBudgetItemById(categories, action){
-  const {id} = action.item;
+function deleteBudgetItem(categories, id){
   const newCategories = categoriesCopy(categories);
   const categoryIndex = getCategoryIndexById(newCategories, id);
   newCategories[categoryIndex].items = newCategories[categoryIndex].items.filter((e) => e.id !== id);
@@ -55,9 +45,8 @@ function deleteBudgetItemById(categories, action){
   return newCategories;
 }
 
-function editBudgetItem(state, action){
-  const midState = deleteBudgetItemById(state, action);
-  return addBudgetItem(midState, action);
+function updateBudgetItem(state, item){
+  return addBudgetItem(deleteBudgetItem(state, item.id), item);
 }
 
 export default (state = {
@@ -76,17 +65,17 @@ export default (state = {
       });
     case 'ADD_BUDGET_ITEM': {
       return Object.assign({}, state, {
-        categories: addBudgetItem(state.categories, action)
+        categories: addBudgetItem(state.categories, action.item)
       });
     }
-    case 'EDIT_BUDGET_ITEM': {
+    case 'UPDATE_BUDGET_ITEM': {
       return Object.assign({}, state, {
-        categories: editBudgetItem(state.categories, action)
+        categories: updateBudgetItem(state.categories, action.item)
       });
     }
     case 'DELETE_BUDGET_ITEM': {
       return Object.assign({}, state, {
-        categories: deleteBudgetItemByCategory(state.categories, action)
+        categories: deleteBudgetItem(state.categories, action.id)
       });
     }
     default:

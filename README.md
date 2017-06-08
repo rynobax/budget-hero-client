@@ -4,6 +4,5 @@
 Budgeting web app - React + Redux
 
 # TODO: 
-  * Edit entries
-  * Remove entries
-  * Change budget timeframe and have values update
+* Get and save income and frequency in DB
+* Confirm delete prompt?

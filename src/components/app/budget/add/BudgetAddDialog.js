@@ -4,13 +4,14 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import {Periods, getPeriodByValue} from '../period';
 
 export default class BudgetAddDialog extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      frequencyValue: 0,
+      frequencyValue: 1,
       categoryValue: props.categories.length > 0 ? 0 : -1,
       newCategoryNameError: '',
       newBudgetItemNameError: '',
@@ -57,27 +58,14 @@ export default class BudgetAddDialog extends React.Component {
     this.newBudgetItemAmountChange = (_, val) => {
       this.newBudgetItemAmount = val;
     };
-
-    const getPeriod = () => {
-      switch(this.state.frequencyValue){
-        case 0:
-          return 'ANNUAL';
-        case 1:
-          return 'MONTHLY';
-        case 2:
-          return 'WEEKLY';
-        case 3:
-          return 'PERCENT';
-      }
-    };
     
     this.percentStyle = () => {
-      if(getPeriod() == 'PERCENT') return {};
+      if(getPeriodByValue(this.state.frequencyValue).name.toUpperCase() == 'PERCENT') return {};
       return {display: "none"};
     };
     
     this.valueStyle = () => {
-      if(getPeriod() == 'PERCENT') return {display: "none"};
+      if(getPeriodByValue(this.state.frequencyValue).name.toUpperCase() == 'PERCENT') return {display: "none"};
       return {};
     };
 
@@ -92,15 +80,16 @@ export default class BudgetAddDialog extends React.Component {
       const item = {
         name: this.newBudgetItemName,
         category: category,
-        period: getPeriod(),
-        amount: this.newBudgetItemAmount,
-        type: 'VALUE'
+        period: getPeriodByValue(this.state.frequencyValue).name,
+        amount: this.newBudgetItemAmount
       };
       this.props.addBudgetItem(item).then(res => {
         this.clearErrors();
         if(res.added){
+          // Close dialog
           this.props.handleClose();
         } else {
+          // Set errors
           const errors = res.error.split('\n');
           errors.forEach((err) => {
             function ucFirst(string){
@@ -141,9 +130,8 @@ export default class BudgetAddDialog extends React.Component {
         key={0}
       />,
       <FlatButton
-        label="Submit"
+        label="Add Item"
         primary={true}
-        keyboardFocused={true}
         onTouchTap={this.submit}
         key={1}
       />,
@@ -167,36 +155,32 @@ export default class BudgetAddDialog extends React.Component {
         </div>
 
         <div>
-          <div style={this.valueStyle()}>
-            <TextField
-              hintText="500.00"
-              floatingLabelText="Amount"
-              type="number"
-              onChange={this.newBudgetItemAmountChange}
-              errorText={this.state.newBudgetItemAmountError}
-              />
-          </div>
-        </div>
-          <div style={this.percentStyle()}>
-            <TextField
-              hintText="10"
-              floatingLabelText="Percentage"
-              type="number"
-              onChange={this.newBudgetItemAmountChange}
-              errorText={this.state.newBudgetItemAmountError}
-              />
-          </div>
-        <div>
           <SelectField
             floatingLabelText="Frequency"
             value={this.state.frequencyValue}
             onChange={this.handleChangeFrequency}
           >
-            <MenuItem value={0} primaryText="Annually" />
-            <MenuItem value={1} primaryText="Monthly" />
-            <MenuItem value={2} primaryText="Weekly" />
-            <MenuItem value={3} primaryText="Percentage" />
+            {Periods.map((e) => <MenuItem key={e.value} value={e.value} primaryText={e.name} />)}
           </SelectField>
+        </div>
+        
+        <div style={this.valueStyle()}>
+          <TextField
+            hintText="500.00"
+            floatingLabelText="Amount"
+            type="number"
+            onChange={this.newBudgetItemAmountChange}
+            errorText={this.state.newBudgetItemAmountError}
+            />
+        </div>
+        <div style={this.percentStyle()}>
+          <TextField
+            hintText="10"
+            floatingLabelText="Percentage"
+            type="number"
+            onChange={this.newBudgetItemAmountChange}
+            errorText={this.state.newBudgetItemAmountError}
+            />
         </div>
         
         <div>

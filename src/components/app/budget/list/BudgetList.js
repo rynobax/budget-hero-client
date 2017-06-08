@@ -29,6 +29,7 @@ export default class BudgetList extends React.Component {
                 <BudgetCategory
                 key={i}
                 category={category}
+                categoryIndex={i}
                 onCheck={this.onCheck.bind(null, i)}
                 hidden={this.state.hidden[i] || false}
                 periodValue={this.props.periodValue}

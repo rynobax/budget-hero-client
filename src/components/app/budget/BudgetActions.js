@@ -92,18 +92,18 @@ export function addBudgetItem(item) {
   };
 }
 
-const editBudgetItemAction = (item) => {
+const updateBudgetItemAction = (item) => {
   return {
-    type: 'EDIT_BUDGET_ITEM',
+    type: 'UPDATE_BUDGET_ITEM',
     item: item
   };
 };
 
-export function editBudgetItem(item) {
+export function updateBudgetItem(item) {
   return (dispatch) => {
     return fetch(API_BASE + 'budget', {
       method: 'PUT', 
-      body: JSON.stringify(item),
+      body: JSON.stringify({item: item}),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -113,12 +113,46 @@ export function editBudgetItem(item) {
       .then(handleErrors)
       .then(response => response.json())
       .then((response) => {
-        if(response.updated) dispatch(editBudgetItemAction(item));
+        if(response.updated) dispatch(updateBudgetItemAction(item));
         return response;
       })
       .catch((err) => {
         return {
           updated: false,
+          error: err
+        };
+      });
+  };
+}
+
+
+const deleteBudgetItemAction = (id) => {
+  return {
+    type: 'DELETE_BUDGET_ITEM',
+    id: id
+  };
+};
+
+export function deleteBudgetItem(id) {
+  return (dispatch) => {
+    return fetch(API_BASE + 'budget', {
+      method: 'DELETE', 
+      body: JSON.stringify({id: id}),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    })
+      .then(handleErrors)
+      .then(response => response.json())
+      .then((response) => {
+        if(response.deleted) dispatch(deleteBudgetItemAction(id));
+        return response;
+      })
+      .catch((err) => {
+        return {
+          deleted: false,
           error: err
         };
       });

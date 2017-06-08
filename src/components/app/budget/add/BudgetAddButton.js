@@ -32,7 +32,6 @@ export default class BudgetAddButton extends React.Component {
         >
         <ContentAdd />
         <BudgetAddDialogContainer {...{
-          handleOpen: this.handleOpen,
           handleClose: this.handleClose,
           open: this.state.open
           }}/>
