@@ -1,9 +1,9 @@
-import budgetReducer from './BudgetReducer';
+import budgetItemReducer from './BudgetItemReducer';
 
-describe('budget reducer', () => {
+describe('budget item reducer', () => {
   it('should return the initial state', () => {
     expect(
-      budgetReducer(undefined, {})
+      budgetItemReducer(undefined, {})
     ).toEqual(
       {
         items: [],
@@ -12,12 +12,12 @@ describe('budget reducer', () => {
     );
   });
 
-  it('should handle REQUEST_BUDGET', () => {
+  it('should handle REQUEST_BUDGET_ITEMS', () => {
     expect(
-      budgetReducer({
+      budgetItemReducer({
         isFetching: false
       }, {
-        type: 'REQUEST_BUDGET'
+        type: 'REQUEST_BUDGET_ITEMS'
       })
     ).toEqual(
       {
@@ -26,13 +26,13 @@ describe('budget reducer', () => {
     );
   });
 
-  it('should handle RECIEVE_BUDGET', () => {
+  it('should handle RECIEVE_BUDGET_ITEMS', () => {
     expect(
-      budgetReducer({
+      budgetItemReducer({
         items: [],
         isFetching: true
       }, {
-        type: 'RECIEVE_BUDGET',
+        type: 'RECIEVE_BUDGET_ITEMS',
         items: [
           {
             name: 'Water',
@@ -55,7 +55,7 @@ describe('budget reducer', () => {
 
   it('should handle ADD_BUDGET_ITEM', () => {
     expect(
-      budgetReducer({
+      budgetItemReducer({
         items: [],
         isFetching: false
       }, {
@@ -86,7 +86,7 @@ describe('budget reducer', () => {
 
   it('should handle DELETE_BUDGET_ITEM', () => {
     expect(
-      budgetReducer({
+      budgetItemReducer({
         isFetching: false,
         items: [
           {
@@ -126,7 +126,7 @@ describe('budget reducer', () => {
 
   it('should handle DELETE_BUDGET_ITEM with 1 item left', () => {
       expect(
-        budgetReducer({
+        budgetItemReducer({
           isFetching: false,
           items: [
             {
@@ -151,7 +151,7 @@ describe('budget reducer', () => {
 
   it('should handle UPDATE_BUDGET_ITEM', () => {
       expect(
-        budgetReducer({
+        budgetItemReducer({
           isFetching: false,
           items: [
             {

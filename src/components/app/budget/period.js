@@ -45,3 +45,15 @@ export const getPeriodByName = (name) => {
     }
   }, null);
 };
+
+export const getAdjustedValue = (fromAmount, fromPeriod, toPeriod) => {
+  const fromPeriodObj = getPeriodByName(fromPeriod);
+  if(fromPeriodObj == null) throw('Invalid fromPeriod: ' + fromPeriod);
+  const fromPeriodDays = fromPeriodObj.days;
+
+  const toPeriodObj = getPeriodByName(toPeriod);
+  if(toPeriodObj == null) throw('Invalid toPeriod: '+ toPeriod);
+  const toPeriodDays = getPeriodByName(toPeriod).days;
+
+  return fromAmount * (fromPeriodDays / toPeriodDays);
+};

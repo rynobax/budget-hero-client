@@ -1,5 +1,5 @@
 import React from 'react';
-import BudgetCategory from './BudgetCategory';
+import BudgetCategoryContainer from '../category/BudgetCategoryContainer';
 import BudgetModifyDialogContainer from '../modify/BudgetModifyDialogContainer';
 
 export default class BudgetList extends React.Component {
@@ -59,18 +59,16 @@ export default class BudgetList extends React.Component {
       return (
         <div>
           {this.props.categories
-            .sort((a, b) => a.name.toUpperCase() > b.name.toUpperCase())
+            .sort((a, b) => a.toUpperCase() > b.toUpperCase())
             .map((category, i) => {
               return (
-                <BudgetCategory
+                <BudgetCategoryContainer
                 key={i}
                 category={category}
                 categoryIndex={i}
                 isLastCategory={i == (this.props.categories.length-1)}
                 onCheck={this.onCheck.bind(null, i)}
                 hidden={this.state.hidden[i] || false}
-                periodValue={this.props.periodValue}
-                income={this.props.income}
                 openModifyModal={this.handleModifyModalOpen}
                 />
               );

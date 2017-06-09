@@ -1,5 +1,5 @@
 import React from 'react';
-import BudgetItem from './BudgetItem';
+import BudgetItemContainer from '../item/BudgetItemContainer';
 import Checkbox from 'material-ui/Checkbox';
 import UpArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import DownArrow from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
@@ -24,7 +24,7 @@ const BudgetCategory = (props) => {
     <Checkbox
       checkedIcon={<UpArrow />}
       uncheckedIcon={<DownArrow />}
-      label={props.category.name}
+      label={props.category}
       style={styles.checkbox}
       onCheck={props.onCheck}
     />
@@ -33,21 +33,19 @@ const BudgetCategory = (props) => {
     selectable={false}
     onCellClick={(rowNumber) => {
       props.openModifyModal(
-        props.category.items[rowNumber],
+        props.items[rowNumber],
         props.categoryIndex,
-        props.category.items.length == 1 && props.isLastCategory); // isLastItemInLastCategory
+        props.items.length == 1 && props.isLastCategory); // isLastItemInLastCategory
     }}>
       <TableBody
       showRowHover={true}>
-        {props.category.items
+        {props.items
           .sort((a, b) => a.name.toUpperCase() > b.name.toUpperCase())
           .map((item, i) => {
             return (
-              <BudgetItem 
+              <BudgetItemContainer 
               key={i}
-              item={item}
-              periodValue={props.periodValue}
-              income={props.income}
+              itemId={item.id}
               />
             );
         })}
@@ -55,5 +53,5 @@ const BudgetCategory = (props) => {
     </Table>
   </div>
   );
-}
+};
 export default BudgetCategory;

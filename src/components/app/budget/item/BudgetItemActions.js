@@ -1,15 +1,15 @@
 import fetch from 'isomorphic-fetch';
-import {API_BASE} from '../../../config';
+import {API_BASE} from '../../../../config';
 
 const requestBudgetAction = () => {
   return {
-    type: 'REQUEST_BUDGET'
+    type: 'REQUEST_BUDGET_ITEMS'
   };
 };
 
 const recieveBudgetAction = (items) => {
   return {
-    type: 'RECIEVE_BUDGET',
+    type: 'RECIEVE_BUDGET_ITEMS',
     items: items
   };
 };

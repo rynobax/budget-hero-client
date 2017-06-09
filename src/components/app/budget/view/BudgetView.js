@@ -7,13 +7,8 @@ import BudgetViewFooter from './BudgetViewFooter';
 export default class BudgetView extends React.Component {
   constructor(props){
     super(props);
-    
-    this.state = {
-      periodValue: 1,
-      income: 0
-    };
 
-    this.handlePeriodChange = (_e, _i, value) => this.setState(Object.assign(this.state, {periodValue: value}));
+    this.handlePeriodChange = (_e, _i, value) => props.updatePeriod(value);
     this.handleIncomeChange = (_e, value) => this.setState(Object.assign(this.state, {income: value}));
 
     this.categories = [];
@@ -21,24 +16,13 @@ export default class BudgetView extends React.Component {
   }
   
   componentWillReceiveProps(nextProps){    
-    this.categories = nextProps.items.reduce((categories, {category, ...item}) => {
-      const index = categories.reduce((prev, cur, i) => {
-        if(cur.name == category) return i;
-        else return prev;
-      }, -1);
-      if(index == -1) {
-        categories.push({
-          name: category,
-          items: [item]
-        });
-      } else {
-        categories[index].items.push(item);
-      }
+    this.categories = nextProps.items.reduce((categories, {category}) => {
+      if(!categories.some((c) => c == category)) categories.push(category);
       return categories;
     }, []);
     
     this.budgetMargin =
-      this.state.income -
+      nextProps.income -
       nextProps.items.reduce((sum, item) => {
         return sum + item.amount;
       }, 0);
@@ -48,16 +32,14 @@ export default class BudgetView extends React.Component {
     return(
       <div>
         <BudgetViewHeader 
-          periodValue={this.state.periodValue}
+          periodValue={this.props.periodValue}
           handlePeriodChange={this.handlePeriodChange}
-          income={this.state.income}
+          income={this.props.income}
           handleIncomeChange={this.handleIncomeChange}
           />
         <BudgetList
           categories={this.categories}
           fetch={this.props.fetch}
-          periodValue={this.state.periodValue}
-          income={this.state.income}
           />
         <BudgetViewFooter 
           margin={this.budgetMargin}
