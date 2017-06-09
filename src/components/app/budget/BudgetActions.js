@@ -7,10 +7,10 @@ const requestBudgetAction = () => {
   };
 };
 
-const recieveBudgetAction = (categories) => {
+const recieveBudgetAction = (items) => {
   return {
     type: 'RECIEVE_BUDGET',
-    categories: categories
+    items: items
   };
 };
 
@@ -31,11 +31,8 @@ const fetchBudget = () => {
     return fetch(API_BASE + 'budget', {credentials: 'include'})
       .then(handleErrors)
       .then(response => response.json())
-      .then((budgetItems) => {
-        dispatch(recieveBudgetAction(budgetItems));
-      })
-      .catch((err) => {
-        console.error('Error in fetchBudget: ', err);
+      .then((response) => {
+        dispatch(recieveBudgetAction(response.items));
       });
   };
 };
@@ -82,12 +79,6 @@ export function addBudgetItem(item) {
       .then((response) => {
         if(response.added) dispatch(addBudgetItemAction(response.item));
         return response;
-      })
-      .catch((err) => {
-        return {
-          added: false,
-          error: err
-        };
       });
   };
 }
@@ -115,12 +106,6 @@ export function updateBudgetItem(item) {
       .then((response) => {
         if(response.updated) dispatch(updateBudgetItemAction(item));
         return response;
-      })
-      .catch((err) => {
-        return {
-          updated: false,
-          error: err
-        };
       });
   };
 }
@@ -149,12 +134,6 @@ export function deleteBudgetItem(id) {
       .then((response) => {
         if(response.deleted) dispatch(deleteBudgetItemAction(id));
         return response;
-      })
-      .catch((err) => {
-        return {
-          deleted: false,
-          error: err
-        };
       });
   };
 }

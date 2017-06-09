@@ -15,11 +15,12 @@ export default class BudgetView extends React.Component {
     this.handlePeriodChange = (_e, _i, value) => this.setState(Object.assign(this.state, {periodValue: value}));
     this.handleIncomeChange = (_e, value) => this.setState(Object.assign(this.state, {income: value}));
 
-    this.budgetSum = this.props.categories.reduce((budgetSum, category) => {
+    this.budetSum = 0;
+    /*this.budgetSum = props.categories.reduce((budgetSum, category) => {
       return budgetSum + category.items.reduce((categorySum, item) => {
         return categorySum + item.value;
       });
-    }, 0);
+    }, 0);*/
   }
 
   render(){

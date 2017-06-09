@@ -16,51 +16,23 @@ describe('async budget actions', () => {
   it('handles RECIEVE_BUDGET', () => {
     nock(API_BASE)
       .get('/budget')
-      .reply(200, [
-        {
-          name: 'Utilities',
-          items: [
-              {
-                name: 'Water',
-              },
-              {
-                name: 'Electricity',
-              }
-            ]
-        },
-        {
-          name: 'Personal',
-          items: [
-            {
-              name: 'Spending',
-            }
-          ]
-        }
-      ]);
+      .reply(200, {
+        items: [
+          {
+            name: 'Water',
+            category: 'Utilities'
+          }
+        ]
+      });
 
     const expectedActions = [
       { type: 'REQUEST_BUDGET' },
       {
         type: 'RECIEVE_BUDGET',
-        categories: [
+        items: [
           {
-            name: 'Utilities',
-            items: [
-                {
-                  name: 'Water',
-                },
-                {
-                  name: 'Electricity',
-                }
-              ]
-          },
-          {
-            name: 'Personal',
-            items: [
-              {
-                name: 'Spending',
-              }
-            ]
+            name: 'Water',
+            category: 'Utilities'
           }
         ]
       }

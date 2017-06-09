@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import BudgetModifyDialog from './BudgetModifyDialog';
 import { updateBudgetItem, deleteBudgetItem } from '../BudgetActions';
+import { getCategoryNamesFromItems } from '../BudgetStateHelper';
 
 const mapStateToProps = ({budget}) => {
   return {
-      categories: budget.categories.map((e) => e.name)
+      categories: getCategoryNamesFromItems(budget.items)
   };
 };
 

@@ -6,7 +6,7 @@ describe('budget reducer', () => {
       budgetReducer(undefined, {})
     ).toEqual(
       {
-        categories: [],
+        items: [],
         isFetching: false
       }
     );
@@ -29,64 +29,34 @@ describe('budget reducer', () => {
   it('should handle RECIEVE_BUDGET', () => {
     expect(
       budgetReducer({
-        categories: [],
+        items: [],
         isFetching: true
       }, {
         type: 'RECIEVE_BUDGET',
-        categories: [
+        items: [
           {
-            name: 'Utilities',
-            items: [
-              {
-                name: 'Water'
-              },
-              {
-                name: 'Electricity'
-              }
-            ]
-          },
-          {
-            name: 'Personal',
-            items: [
-              {
-                name: 'Spending'
-              }
-            ]
+            name: 'Water',
+            category: 'Utilities'
           }
         ]
       })
     ).toEqual(
       {
         isFetching: false,
-        categories: [
+        items: [
           {
-            name: 'Utilities',
-            items: [
-              {
-                name: 'Water'
-              },
-              {
-                name: 'Electricity'
-              }
-            ]
-          },
-          {
-            name: 'Personal',
-            items: [
-              {
-                name: 'Spending'
-              }
-            ]
+            name: 'Water',
+            category: 'Utilities'
           }
         ]
       }
     );
   });
 
-  it('should handle ADD_BUDGET_ITEM with empty category', () => {
+  it('should handle ADD_BUDGET_ITEM', () => {
     expect(
       budgetReducer({
-        categories: [],
+        items: [],
         isFetching: false
       }, {
         type: 'ADD_BUDGET_ITEM',
@@ -94,55 +64,46 @@ describe('budget reducer', () => {
           name: 'Rent',
           category: 'Bills',
           period: 'WEEKLY',
-          type: 'VALUE',
-          amount: '500'
+          amount: '500',
+          id: '1'
         }
       })
     ).toEqual(
       {
         isFetching: false,
-        categories: [
+        items: [
           {
-            name: 'Bills',
-            items: [
-              {
-                name: 'Rent',
-                period: 'WEEKLY',
-                type: 'VALUE',
-                amount: '500'
-              }
-            ]
+            name: 'Rent',
+            category: 'Bills',
+            period: 'WEEKLY',
+            amount: '500',
+            id: '1'
           }
         ]
       }
     );
   });
 
-  it('should handle DELETE_BUDGET_ITEM with a category with >1 items', () => {
+  it('should handle DELETE_BUDGET_ITEM', () => {
     expect(
       budgetReducer({
-        categories: [
+        isFetching: false,
+        items: [
           {
-            name: 'Bills',
-            items: [
-              {
-                name: 'Rent',
-                period: 'WEEKLY',
-                type: 'VALUE',
-                amount: '500',
-                id: '5'
-              },
-              {
-                name: 'Spending',
-                period: 'WEEKLY',
-                type: 'VALUE',
-                amount: '50',
-                id: '6'
-              }
-            ]
+            name: 'Rent',
+            period: 'WEEKLY',
+            type: 'VALUE',
+            amount: '500',
+            id: '5'
+          },
+          {
+            name: 'Spending',
+            period: 'WEEKLY',
+            type: 'VALUE',
+            amount: '50',
+            id: '6'
           }
-        ],
-        isFetching: false
+        ]
       }, {
         type: 'DELETE_BUDGET_ITEM',
         id: '5'
@@ -150,42 +111,32 @@ describe('budget reducer', () => {
     ).toEqual(
       {
         isFetching: false,
-        categories: [
+        items: [
           {
-            name: 'Bills',
-            items: [
-              {
-                name: 'Spending',
-                period: 'WEEKLY',
-                type: 'VALUE',
-                amount: '50',
-                id: '6'
-              }
-            ]
+            name: 'Spending',
+            period: 'WEEKLY',
+            type: 'VALUE',
+            amount: '50',
+            id: '6'
           }
         ]
       }
     );
   });
 
-  it('should handle DELETE_BUDGET_ITEM with a category with 1 item', () => {
+  it('should handle DELETE_BUDGET_ITEM with 1 item left', () => {
       expect(
         budgetReducer({
-          categories: [
+          isFetching: false,
+          items: [
             {
-              name: 'Bills',
-              items: [
-                {
-                  name: 'Rent',
-                  period: 'WEEKLY',
-                  type: 'VALUE',
-                  amount: '500',
-                  id: '5'
-                }
-              ]
+              name: 'Rent',
+              period: 'WEEKLY',
+              type: 'VALUE',
+              amount: '500',
+              id: '5'
             }
-          ],
-          isFetching: false
+          ]
         }, {
           type: 'DELETE_BUDGET_ITEM',
           id: '5'
@@ -193,36 +144,29 @@ describe('budget reducer', () => {
       ).toEqual(
         {
           isFetching: false,
-          categories: []
+          items: []
         }
       );
     });
 
-  it('should handle UPDATE_BUDGET_ITEM WITHOUT a category change', () => {
+  it('should handle UPDATE_BUDGET_ITEM', () => {
       expect(
         budgetReducer({
-          categories: [
+          isFetching: false,
+          items: [
             {
-              name: 'Bills',
-              items: [
-                {
-                  name: 'Rent',
-                  period: 'WEEKLY',
-                  type: 'VALUE',
-                  amount: '500',
-                  id: '5'
-                }
-              ]
+              name: 'Rent',
+              period: 'WEEKLY',
+              amount: '500',
+              id: '5'
             }
-          ],
-          isFetching: false
+          ]
         }, {
           type: 'UPDATE_BUDGET_ITEM',
           item: {
             name: 'Rent',
             category: 'Bills',
             period: 'WEEKLY',
-            type: 'VALUE',
             amount: '50',
             id: '5'
           }
@@ -230,68 +174,13 @@ describe('budget reducer', () => {
       ).toEqual(
         {
           isFetching: false,
-          categories: [
+          items: [
             {
-              name: 'Bills',
-              items: [
-                {
-                  name: 'Rent',
-                  period: 'WEEKLY',
-                  type: 'VALUE',
-                  amount: '50',
-                  id: '5'
-                }
-              ]
-            }
-          ]
-        }
-      );
-    });
-
-  it('should handle UPDATE_BUDGET_ITEM WITH a category change', () => {
-      expect(
-        budgetReducer({
-          categories: [
-            {
-              name: 'Bills',
-              items: [
-                {
-                  name: 'Rent',
-                  period: 'WEEKLY',
-                  type: 'VALUE',
-                  amount: '500',
-                  id: '5'
-                }
-              ]
-            }
-          ],
-          isFetching: false
-        }, {
-          type: 'UPDATE_BUDGET_ITEM',
-          item: {
-            name: 'Rent',
-            category: 'Fun',
-            period: 'WEEKLY',
-            type: 'VALUE',
-            amount: '500',
-            id: '5'
-          }
-        })
-      ).toEqual(
-        {
-          isFetching: false,
-          categories: [
-            {
-              name: 'Fun',
-              items: [
-                {
-                  name: 'Rent',
-                  period: 'WEEKLY',
-                  type: 'VALUE',
-                  amount: '500',
-                  id: '5'
-                }
-              ]
+              name: 'Rent',
+              category: 'Bills',
+              period: 'WEEKLY',
+              amount: '50',
+              id: '5'
             }
           ]
         }

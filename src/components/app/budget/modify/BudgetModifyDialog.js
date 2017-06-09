@@ -120,15 +120,10 @@ export default class BudgetModifyDialog extends React.Component {
         } else {
           console.log('Error in deleteBudgetItem: ', res.error);
         }
-      })
-      .catch(err => {
-        console.error('Error in deleteBudgetItem: ', err);
       });
     };
   }
   
-
-
   componentWillReceiveProps(nextProps){
     if(this.props.open == false && nextProps.open == true){
       const templateItem =  nextProps.templateItem;
@@ -156,20 +151,17 @@ export default class BudgetModifyDialog extends React.Component {
       <FlatButton
         label="Cancel"
         onTouchTap={handleClose}
-        key={0}
-      />,
+        key={0} />,
       <FlatButton
         label="Delete Item"
         secondary={true}
         onTouchTap={this.submitDelete}
-        key={1}
-      />,
+        key={1} />,
       <FlatButton
         label="Edit Item"
         primary={true}
         onTouchTap={this.submitUpdate}
-        key={2}
-      />,
+        key={2} />,
     ];
     return (
       <Dialog
@@ -179,26 +171,22 @@ export default class BudgetModifyDialog extends React.Component {
         open={this.props.open}
         onRequestClose={handleClose}
         autoScrollBodyContent={true}
-      >
-        <div>
-          <TextField
-            hintText="Rent"
-            floatingLabelText="Budget Item Name"
-            onChange={this.newBudgetItemNameChange}
-            errorText={this.state.newBudgetItemNameError}
-            defaultValue={this.newBudgetItemNameDefault}
-            />
-        </div>
+        >
+        <TextField
+          hintText="Rent"
+          floatingLabelText="Budget Item Name"
+          onChange={this.newBudgetItemNameChange}
+          errorText={this.state.newBudgetItemNameError}
+          defaultValue={this.newBudgetItemNameDefault}
+          />
 
-        <div>
-          <SelectField
-            floatingLabelText="Frequency"
-            value={this.state.frequencyValue}
-            onChange={this.handleChangeFrequency}
+        <SelectField
+          floatingLabelText="Frequency"
+          value={this.state.frequencyValue}
+          onChange={this.handleChangeFrequency}
           >
-            {Periods.map((e) => <MenuItem key={e.value} value={e.value} primaryText={e.name} />)}
-          </SelectField>
-        </div>
+          {Periods.map((e) => <MenuItem key={e.value} value={e.value} primaryText={e.name} />)}
+        </SelectField>
         
         <div style={this.valueStyle()}>
           <TextField
@@ -221,16 +209,14 @@ export default class BudgetModifyDialog extends React.Component {
             />
         </div>
         
-        <div>
-          <SelectField
-            floatingLabelText="Category"
-            value={this.state.categoryValue}
-            onChange={this.handleChangeCategory}
-            autoWidth={true}
-          >
-            {this.categories}
-          </SelectField>
-        </div>
+        <SelectField
+          floatingLabelText="Category"
+          value={this.state.categoryValue}
+          onChange={this.handleChangeCategory}
+          autoWidth={true}
+        >
+          {this.categories}
+        </SelectField>
 
         <div style={this.newCategoryStyle()}>
           <TextField

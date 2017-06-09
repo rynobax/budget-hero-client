@@ -5,7 +5,7 @@ const divStyle = {
   height: 60
 };
 
-const BudgetListHeader = (props) => {
+const BudgetListFooter = (props) => {
   return (
     <div style={{
       display: 'flex'
@@ -20,4 +20,4 @@ const BudgetListHeader = (props) => {
   );
 };
 
-export default BudgetListHeader;
+export default BudgetListFooter;

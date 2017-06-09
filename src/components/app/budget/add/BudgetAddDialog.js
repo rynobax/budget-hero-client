@@ -12,7 +12,7 @@ export default class BudgetAddDialog extends React.Component {
 
     this.state = {
       frequencyValue: 1,
-      categoryValue: props.categories.length > 0 ? 0 : -1,
+      categoryValue: -1,
       newCategoryNameError: '',
       newBudgetItemNameError: '',
       newBudgetItemAmountError: ''
@@ -42,19 +42,16 @@ export default class BudgetAddDialog extends React.Component {
     };
 
     this.newCategoryName = '';
-
     this.newCategoryOnChange = (_, val) => {
       this.newCategoryName = val;
     };
 
     this.newBudgetItemName = '';
-
     this.newBudgetItemNameChange = (_, val) => {
       this.newBudgetItemName = val;
     };
 
     this.newBudgetItemAmount = '';
-
     this.newBudgetItemAmountChange = (_, val) => {
       this.newBudgetItemAmount = val;
     };
@@ -63,13 +60,13 @@ export default class BudgetAddDialog extends React.Component {
       if(getPeriodByValue(this.state.frequencyValue).name.toUpperCase() == 'PERCENT') return {};
       return {display: "none"};
     };
-    
     this.valueStyle = () => {
       if(getPeriodByValue(this.state.frequencyValue).name.toUpperCase() == 'PERCENT') return {display: "none"};
       return {};
     };
 
     this.submit = () => {
+      // If the category selected is 'New Category' use the new category field
       let category = '';
       const categoryIndex = this.state.categoryValue;
       if(categoryIndex != -1){
@@ -77,13 +74,13 @@ export default class BudgetAddDialog extends React.Component {
       }else{
         category = this.newCategoryName;
       }
-      const item = {
+      
+      this.props.addBudgetItem({
         name: this.newBudgetItemName,
         category: category,
         period: getPeriodByValue(this.state.frequencyValue).name,
         amount: this.newBudgetItemAmount
-      };
-      this.props.addBudgetItem(item).then(res => {
+      }).then(res => {
         this.clearErrors();
         if(res.added){
           // Close dialog
@@ -106,16 +103,21 @@ export default class BudgetAddDialog extends React.Component {
             }
           });
         }
-      })
-      .catch(err => {
-        console.error('Error in addBudgetItem: ', err);
       });
     };
   }
   
+  componentWillReceiveProps(nextProps){
+    if(nextProps.categories.length > 0){
+      this.setState(Object.assign(this.state, {
+        categoryValue: 0
+      }));
+    }
+  }
+  
   render() {
-    this.categories = this.props.categories.sort().map((name, i) => <MenuItem value={i} primaryText={name} key={i} />);
-    this.categories.push(<MenuItem value={-1} primaryText="New Category" key={-1} />);
+    this.categoryMenu = this.props.categories.sort().map((name, i) => <MenuItem value={i} primaryText={name} key={i} />);
+    this.categoryMenu.push(<MenuItem value={-1} primaryText="New Category" key={-1} />);
 
     const handleClose = () => {
       this.clearErrors();
@@ -127,14 +129,12 @@ export default class BudgetAddDialog extends React.Component {
         label="Cancel"
         primary={true}
         onTouchTap={handleClose}
-        key={0}
-      />,
+        key={0} />,
       <FlatButton
         label="Add Item"
         primary={true}
         onTouchTap={this.submit}
-        key={1}
-      />,
+        key={1} />
     ];
     return (
       <Dialog
@@ -144,17 +144,13 @@ export default class BudgetAddDialog extends React.Component {
         open={this.props.open}
         onRequestClose={handleClose}
         autoScrollBodyContent={true}
-      >
-        <div>
-          <TextField
-            hintText="Rent"
-            floatingLabelText="Budget Item Name"
-            onChange={this.newBudgetItemNameChange}
-            errorText={this.state.newBudgetItemNameError}
-            />
-        </div>
-
-        <div>
+        >
+        <TextField
+          hintText="Rent"
+          floatingLabelText="Budget Item Name"
+          onChange={this.newBudgetItemNameChange}
+          errorText={this.state.newBudgetItemNameError}
+          />
           <SelectField
             floatingLabelText="Frequency"
             value={this.state.frequencyValue}
@@ -162,7 +158,6 @@ export default class BudgetAddDialog extends React.Component {
           >
             {Periods.map((e) => <MenuItem key={e.value} value={e.value} primaryText={e.name} />)}
           </SelectField>
-        </div>
         
         <div style={this.valueStyle()}>
           <TextField
@@ -183,16 +178,14 @@ export default class BudgetAddDialog extends React.Component {
             />
         </div>
         
-        <div>
-          <SelectField
-            floatingLabelText="Category"
-            value={this.state.categoryValue}
-            onChange={this.handleChangeCategory}
-            autoWidth={true}
-          >
-            {this.categories}
-          </SelectField>
-        </div>
+        <SelectField
+          floatingLabelText="Category"
+          value={this.state.categoryValue}
+          onChange={this.handleChangeCategory}
+          autoWidth={true}
+        >
+          {this.categoryMenu}
+        </SelectField>
 
         <div style={this.newCategoryStyle()}>
           <TextField
