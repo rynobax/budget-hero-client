@@ -23,7 +23,7 @@ export default class BudgetList extends React.Component {
       return (
         <div>
           {this.props.categories
-            .sort((a, b) => a.name > b.name)
+            .sort((a, b) => a.name.toUpperCase() > b.name.toUpperCase())
             .map((category, i) => {
               return (
                 <BudgetCategory

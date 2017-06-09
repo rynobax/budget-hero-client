@@ -58,7 +58,7 @@ export default class BudgetCategory extends React.Component {
         <TableBody
         showRowHover={true}>
           {this.props.category.items
-            .sort((a, b) => a.name > b.name)
+            .sort((a, b) => a.name.toUpperCase() > b.name.toUpperCase())
             .map((item, i) => {
               return (
                 <BudgetItem 

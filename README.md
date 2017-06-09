@@ -6,4 +6,3 @@ Budgeting web app - React + Redux
 # TODO: 
 * Get and save income and frequency in DB
 * Confirm delete prompt?
-* Sort messes up with capitalized categories
