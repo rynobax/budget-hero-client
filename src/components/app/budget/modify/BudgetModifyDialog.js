@@ -106,9 +106,6 @@ export default class BudgetModifyDialog extends React.Component {
             }
           });
         }
-      })
-      .catch(err => {
-        console.error('Error in editBudgetItem: ', err);
       });
     };
 
@@ -118,6 +115,7 @@ export default class BudgetModifyDialog extends React.Component {
         if(res.deleted){
           if(!this.props.isLastItemInLastCategory) this.props.handleClose();
         } else {
+          // TODO: Write error to screen
           console.log('Error in deleteBudgetItem: ', res.error);
         }
       });
