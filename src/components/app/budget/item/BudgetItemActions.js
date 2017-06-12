@@ -8,6 +8,7 @@ const requestBudgetAction = () => {
 };
 
 const recieveBudgetAction = (items) => {
+  console.log('items: ', items)
   return {
     type: 'RECIEVE_BUDGET_ITEMS',
     items: items
@@ -119,6 +120,7 @@ const deleteBudgetItemAction = (id) => {
 };
 
 export function deleteBudgetItem(id) {
+  console.log('id: ', id);
   return (dispatch) => {
     return fetch(API_BASE + 'budget', {
       method: 'DELETE', 
