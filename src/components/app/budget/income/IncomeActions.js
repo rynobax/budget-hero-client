@@ -7,10 +7,10 @@ const requestIncomeAction = () => {
   };
 };
 
-const recieveIncomeAction = (items) => {
+const recieveIncomeAction = (income) => {
   return {
     type: 'RECIEVE_INCOME',
-    items: items
+    income: income
   };
 };
 
@@ -32,7 +32,7 @@ const fetchIncome = () => {
       .then(handleErrors)
       .then(response => response.json())
       .then((response) => {
-        dispatch(recieveIncomeAction(response.items));
+        dispatch(recieveIncomeAction(response.income));
       });
   };
 };

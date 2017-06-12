@@ -3,13 +3,14 @@ import BudgetViewHeader from './BudgetViewHeader';
 import BudgetList from '../list/BudgetList';
 import BudgetAddButton from '../add/BudgetAddButton';
 import BudgetViewFooter from './BudgetViewFooter';
+import { getAdjustedValue } from '../period';
 
 export default class BudgetView extends React.Component {
   constructor(props){
     super(props);
 
     this.handlePeriodChange = (_e, _i, value) => props.updatePeriod(value);
-    this.handleIncomeChange = (_e, value) => this.setState(Object.assign(this.state, {income: value}));
+    this.handleIncomeChange = (_e, value) => props.updateIncome(value, props.periodValue);
 
     this.categories = [];
     this.budgetMargin = 0;
@@ -24,7 +25,13 @@ export default class BudgetView extends React.Component {
     this.budgetMargin =
       nextProps.income -
       nextProps.items.reduce((sum, item) => {
-        return sum + item.amount;
+        let adjustedAmount = 0;
+        if(item.period.toLowerCase() == 'percent'){
+          adjustedAmount = item.amount * (nextProps.income / 100);
+        } else {
+          adjustedAmount = getAdjustedValue(item.amount, item.period, nextProps.periodValue);
+        }
+        return sum + adjustedAmount;
       }, 0);
   }
 

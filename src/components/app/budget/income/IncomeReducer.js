@@ -1,6 +1,6 @@
 export default (state = {
     amount: 0,
-    period: 'YEARLY',
+    period: 4,
     isFetching: false
   }, action) => {
   switch (action.type){

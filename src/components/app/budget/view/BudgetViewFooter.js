@@ -6,6 +6,7 @@ const divStyle = {
 };
 
 const BudgetListFooter = (props) => {
+  const textColor = props.margin >= 0 ? 'green' : 'red';
   return (
     <div style={{
       display: 'flex'
@@ -14,7 +15,7 @@ const BudgetListFooter = (props) => {
         <h2>Margin:</h2>
       </div>
       <div style={divStyle}>
-        <h2>${props.margin.toFixed(2)}</h2>
+        <h2 style={{color: textColor}}>${props.margin.toFixed(2)}</h2>
       </div>
     </div>
   );

@@ -17,18 +17,13 @@ export const Periods = [
   {
     name: 'Yearly',
     value: 4,
-    days: 365
-  },
-  {
-    name: 'Percent',
-    value: 5,
-    days: null
+    days: 360
   }
 ];
 
 export const getPeriodByValue = (value) => {
   return Periods.reduce((prev, period) => {
-    if(period.value.toString() == value.toString()){
+    if(period.value == value){
       return period;
     }else{
       return prev;
@@ -47,13 +42,14 @@ export const getPeriodByName = (name) => {
 };
 
 export const getAdjustedValue = (fromAmount, fromPeriod, toPeriod) => {
+  console.log('toPeriod: ', toPeriod);
   const fromPeriodObj = getPeriodByName(fromPeriod);
   if(fromPeriodObj == null) throw('Invalid fromPeriod: ' + fromPeriod);
   const fromPeriodDays = fromPeriodObj.days;
 
-  const toPeriodObj = getPeriodByName(toPeriod);
+  const toPeriodObj = getPeriodByValue(toPeriod);
   if(toPeriodObj == null) throw('Invalid toPeriod: '+ toPeriod);
-  const toPeriodDays = getPeriodByName(toPeriod).days;
+  const toPeriodDays = toPeriodObj.days;
 
-  return fromAmount * (fromPeriodDays / toPeriodDays);
+  return fromAmount * (toPeriodDays / fromPeriodDays);
 };

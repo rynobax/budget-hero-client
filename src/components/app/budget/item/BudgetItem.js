@@ -13,7 +13,7 @@ const BudgetItem = (props) => {
     {...rowProps}>
       <TableRowColumn>{item.name}</TableRowColumn>
       <TableRowColumn>
-        {'$' + item.amount}
+        {'$' + item.amount.toFixed(2)}
       </TableRowColumn>
     </TableRow>
   );

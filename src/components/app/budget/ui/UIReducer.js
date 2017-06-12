@@ -1,5 +1,5 @@
 export default (state = {
-    period: 1
+    period: 4
   }, action) => {
   switch (action.type){
     case 'UPDATE_UI_PERIOD':
