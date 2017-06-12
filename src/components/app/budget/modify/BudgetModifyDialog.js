@@ -125,7 +125,6 @@ export default class BudgetModifyDialog extends React.Component {
   componentWillReceiveProps(nextProps){
     if(this.props.open == false && nextProps.open == true){
       const templateItem =  nextProps.templateItem;
-      console.log('templateItem: ', templateItem);
       this.newBudgetItemName = templateItem.name;
       this.newBudgetItemNameDefault = templateItem.name;
       this.newBudgetItemAmount = templateItem.amount;
