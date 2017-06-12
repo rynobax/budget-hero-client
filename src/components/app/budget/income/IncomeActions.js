@@ -79,7 +79,7 @@ export function updateIncome(amount, period) {
       .then(response => response.json())
       .then((response) => {
         if(response.updated) dispatch(updateIncomeAction(income));
-        return response;
+        return response.income;
       });
   };
 }

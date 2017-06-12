@@ -4,7 +4,6 @@ import BudgetModifyDialogContainer from '../modify/BudgetModifyDialogContainer';
 
 export default class BudgetList extends React.Component {
   constructor(props) {
-    props.fetch();
     super(props);
     this.state = {
       hidden: {},

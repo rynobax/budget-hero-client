@@ -42,7 +42,6 @@ export const getPeriodByName = (name) => {
 };
 
 export const getAdjustedValue = (fromAmount, fromPeriod, toPeriod) => {
-  console.log('toPeriod: ', toPeriod);
   const fromPeriodObj = getPeriodByName(fromPeriod);
   if(fromPeriodObj == null) throw('Invalid fromPeriod: ' + fromPeriod);
   const fromPeriodDays = fromPeriodObj.days;

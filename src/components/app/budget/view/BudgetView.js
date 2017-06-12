@@ -7,6 +7,8 @@ import { getAdjustedValue } from '../period';
 
 export default class BudgetView extends React.Component {
   constructor(props){
+    props.fetchItems();
+    props.fetchIncome();
     super(props);
 
     this.handlePeriodChange = (_e, _i, value) => props.updatePeriod(value);
@@ -46,7 +48,6 @@ export default class BudgetView extends React.Component {
           />
         <BudgetList
           categories={this.categories}
-          fetch={this.props.fetch}
           />
         <BudgetViewFooter 
           margin={this.budgetMargin}

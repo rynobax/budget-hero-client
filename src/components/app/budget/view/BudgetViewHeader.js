@@ -21,6 +21,7 @@ const BudgetViewHeader = (props) => {
           floatingLabelFixed={true}
           inputStyle={{color: "green"}}
           onChange={props.handleIncomeChange}
+          defaultValue={props.income}
         />
       </div>
       <div style={divStyle}>
