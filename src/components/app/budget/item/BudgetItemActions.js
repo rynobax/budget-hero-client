@@ -120,8 +120,8 @@ const deleteBudgetItemAction = (id) => {
 
 export function deleteBudgetItem(id) {
   return (dispatch) => {
-    return fetch(API_BASE + 'budget', {
-      method: 'DELETE', 
+    return fetch(API_BASE + 'budget/delete', {
+      method: 'POST', 
       body: JSON.stringify({item: {id: id}}),
       headers: {
         'Accept': 'application/json',
