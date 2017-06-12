@@ -7,7 +7,7 @@ const mapStateToProps = ({budget}, {itemId}) => {
   if(item.period.toLowerCase() == 'percent'){
     item.amount = item.amount * (budget.income.amount / 100);
   } else {
-    item.amount = getAdjustedValue(item.amount, item.period, budget.ui.period);
+    item.amount = getAdjustedValue(item.amount, item.period, budget.ui.periodValue);
   }
   return {
     item: item

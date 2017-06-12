@@ -1,6 +1,8 @@
+import { getPeriodByName } from '../period';
+
 export default (state = {
     amount: 0,
-    period: 4,
+    periodValue: 4,
     isFetching: false
   }, action) => {
   switch (action.type){
@@ -12,14 +14,13 @@ export default (state = {
       return Object.assign({}, state, {
         isFetching: false,
         amount: action.income.amount,
-        period: action.income.period
+        periodValue: getPeriodByName(action.income.period).value
       });
-    case 'UPDATE_INCOME': {
+    case 'UPDATE_INCOME':
       return Object.assign({}, state, {
         amount: action.income.amount,
-        period: action.income.period
+        periodValue: getPeriodByName(action.income.period).value
       });
-    }
     default:
       return state;
   }

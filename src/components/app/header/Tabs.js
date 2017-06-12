@@ -24,12 +24,12 @@ const TabsExampleIconText = () => (
     </Tab>
     <Tab icon={<FontIcon className="material-icons">receipt</FontIcon>}>
       <div style={{marginTop: "100px"}}>
-        Transactions
+        <h3 style={{textAlign: "center"}}>Coming Soon - Transactions</h3>
       </div>
     </Tab>
     <Tab icon={<FontIcon className="material-icons">equalizer</FontIcon>}>
       <div style={{marginTop: "100px"}}>
-        Statistics
+        <h3 style={{textAlign: "center"}}>Coming Soon - Statistics</h3>
       </div>
     </Tab>
   </Tabs>

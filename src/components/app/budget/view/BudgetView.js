@@ -11,8 +11,24 @@ export default class BudgetView extends React.Component {
     props.fetchIncome();
     super(props);
 
-    this.handlePeriodChange = (_e, _i, value) => props.updatePeriod(value);
-    this.handleIncomeChange = (_e, value) => props.updateIncome(value, props.periodValue);
+    this.state = {
+      income: props.income,
+      periodValue: props.periodValue
+    };
+
+    this.handlePeriodChange = (_e, _i, value) => {
+      this.setState(Object.assign({}, this.state, {
+        periodValue: value
+      }));
+      props.updatePeriod(value);
+    };
+    
+    this.handleIncomeChange = (_e, value) => {
+      this.setState(Object.assign({}, this.state, {
+        income: value
+      }));
+      props.updateIncome(value, this.state.periodValue);
+    };
 
     this.categories = [];
     this.budgetMargin = 0;
@@ -35,15 +51,20 @@ export default class BudgetView extends React.Component {
         }
         return sum + adjustedAmount;
       }, 0);
+
+    this.setState(Object.assign({}, this.state, {
+      income: nextProps.income,
+      periodValue: nextProps.periodValue
+    }));
   }
 
   render(){
     return(
       <div>
         <BudgetViewHeader 
-          periodValue={this.props.periodValue}
+          periodValue={this.state.periodValue}
           handlePeriodChange={this.handlePeriodChange}
-          income={this.props.income}
+          income={this.state.income}
           handleIncomeChange={this.handleIncomeChange}
           />
         <BudgetList

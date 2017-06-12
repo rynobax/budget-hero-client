@@ -39,7 +39,7 @@ const fetchBudget = () => {
 
 function shouldFetchBudget(state) {
   const budget = state.budget;
-  if (budget.isFetching) {
+  if (budget.item.isFetching) {
     return false;
   } else {
     return true;

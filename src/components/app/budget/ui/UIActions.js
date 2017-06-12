@@ -1,6 +1,6 @@
-export const updateUIPeriod = (period) => {
+export const updateUIPeriod = (periodValue) => {
   return {
     type: 'UPDATE_UI_PERIOD',
-    period: period
+    periodValue: periodValue
   };
 };

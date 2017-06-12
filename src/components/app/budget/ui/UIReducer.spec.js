@@ -6,7 +6,7 @@ describe('ui reducer', () => {
       UIReducer(undefined, {})
     ).toEqual(
       {
-        period: 4
+        periodValue: 4
       }
     );
   });
@@ -14,14 +14,14 @@ describe('ui reducer', () => {
   it('should handle UPDATE_UI_PERIOD', () => {
     expect(
       UIReducer({
-        period: 4
+        periodValue: 4
       }, {
         type: 'UPDATE_UI_PERIOD',
-        period: 2
+        periodValue: 2
       })
     ).toEqual(
       {
-        period: 2
+        periodValue: 2
       }
     );
   });

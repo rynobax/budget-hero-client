@@ -12,7 +12,9 @@ const divStyle = {
 const BudgetViewHeader = (props) => {
   return (
     <div style={{
-      display: 'flex'
+      display: 'flex',
+      justifyContent: "space-between",
+      flexWrap: 'wrap'
       }}>
       <div style={divStyle}>
         <TextField
@@ -21,7 +23,8 @@ const BudgetViewHeader = (props) => {
           floatingLabelFixed={true}
           inputStyle={{color: "green"}}
           onChange={props.handleIncomeChange}
-          defaultValue={props.income}
+          value={props.income}
+          type="number"
         />
       </div>
       <div style={divStyle}>

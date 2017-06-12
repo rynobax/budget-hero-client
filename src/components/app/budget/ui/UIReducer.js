@@ -1,10 +1,10 @@
 export default (state = {
-    period: 4
+    periodValue: 4
   }, action) => {
   switch (action.type){
     case 'UPDATE_UI_PERIOD':
       return Object.assign({}, state, {
-        period: action.period
+        periodValue: action.periodValue
       });
     default:
       return state;

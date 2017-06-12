@@ -3,12 +3,13 @@ import BudgetView from './BudgetView';
 import { fetchBudgetIfNeeded } from '../item/BudgetItemActions';
 import { updateUIPeriod } from '../ui/UIActions';
 import { updateIncome, fetchIncomeIfNeeded } from '../income/IncomeActions';
+import { getPeriodByValue } from '../period';
 
 const mapStateToProps = ({budget}) => {
   return {
     items: budget.item.items,
-    income: budget.income.amount,
-    periodValue: budget.ui.period
+    income: (budget.income.amount * (getPeriodByValue(budget.ui.periodValue).days) / getPeriodByValue(budget.income.periodValue).days ).toFixed(2),
+    periodValue: budget.ui.periodValue
   };
 };
 

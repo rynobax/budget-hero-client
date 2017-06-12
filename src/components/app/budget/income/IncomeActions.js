@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import {API_BASE} from '../../../../config';
+import { getPeriodByValue } from '../period';
 
 const requestIncomeAction = () => {
   return {
@@ -38,7 +39,7 @@ const fetchIncome = () => {
 };
 
 function shouldFetchIncome(state) {
-  const income = state.income;
+  const income = state.budget.income;
   if (income.isFetching) {
     return false;
   } else {
@@ -63,23 +64,27 @@ const updateIncomeAction = (income) => {
   };
 };
 
-export function updateIncome(amount, period) {
-  const income = {amount: amount, period: period};
-  return (dispatch) => {
-    return fetch(API_BASE + 'income', {
-      method: 'PUT', 
-      body: JSON.stringify({income: income}),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'
-    })
-      .then(handleErrors)
-      .then(response => response.json())
-      .then((response) => {
-        if(response.updated) dispatch(updateIncomeAction(income));
-        return response.income;
-      });
+let updateTimeout = null;
+
+export function updateIncome(amount, periodValue) {
+  const income = {
+    period: getPeriodByValue(periodValue).name,
+    amount: amount
+  };
+  return function (dispatch) {
+    dispatch(updateIncomeAction(income));
+    if(updateTimeout != null) clearTimeout(updateTimeout);
+    updateTimeout = setTimeout(() => {
+      fetch(API_BASE + 'income', {
+        method: 'PUT', 
+        body: JSON.stringify({income: income}),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+      })
+      .then(handleErrors);
+    }, 3000);
   };
 }
