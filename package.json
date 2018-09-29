@@ -31,7 +31,6 @@
   "author": "Ryan Baxley",
   "license": "MIT",
   "dependencies": {
-    "bootstrap": "3.3.7",
     "material-ui": "0.18.1",
     "object-assign": "4.1.0",
     "react": "15.4.1",
